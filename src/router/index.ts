@@ -21,14 +21,14 @@ const router = createRouter({
     // -> entry
     {
       path: "/",
-      name: "entry",
       component: EntryLayout,
       meta: {
         needsAuth: false,
       },
       children: [
         {
-          path: "/",
+          path: "",
+          name: "entry",
           component: EntryView,
         },
       ],
@@ -36,14 +36,14 @@ const router = createRouter({
     // -> sign in
     {
       path: "/sign-in",
-      name: "sign-in",
       component: AuthLayout,
       meta: {
         needsAuth: false,
       },
       children: [
         {
-          path: "/",
+          path: "",
+          name: "sign-in",
           component: SignInView,
         },
       ],
@@ -51,14 +51,14 @@ const router = createRouter({
     // -> sign up
     {
       path: "/sign-up",
-      name: "sign-up",
       component: AuthLayout,
       meta: {
         needsAuth: false,
       },
       children: [
         {
-          path: "/",
+          path: "",
+          name: "sign-up",
           component: SignUpView,
         },
       ],
@@ -66,14 +66,14 @@ const router = createRouter({
     // -> home
     {
       path: "/home",
-      name: "home",
       component: AppLayout,
       meta: {
         needsAuth: true,
       },
       children: [
         {
-          path: "/",
+          path: "",
+          name: "home",
           component: HomeView,
         },
       ],
@@ -81,14 +81,14 @@ const router = createRouter({
     // -> issues
     {
       path: "/issues",
-      name: "issues",
       component: AppLayout,
       meta: {
         needsAuth: true,
       },
       children: [
         {
-          path: "/",
+          path: "",
+          name: "issues",
           component: IssuesView,
         },
       ],
@@ -96,14 +96,14 @@ const router = createRouter({
     // -> meal
     {
       path: "/meal",
-      name: "meal",
       component: AppLayout,
       meta: {
         needsAuth: true,
       },
       children: [
         {
-          path: "/",
+          path: "",
+          name: "meal",
           component: MealView,
         },
       ],
@@ -111,14 +111,14 @@ const router = createRouter({
     // -> calendar
     {
       path: "/calendar",
-      name: "calendar",
       component: AppLayout,
       meta: {
         needsAuth: true,
       },
       children: [
         {
-          path: "/",
+          path: "",
+          name: "calendar",
           component: CalendarView,
         },
       ],
@@ -126,14 +126,14 @@ const router = createRouter({
     // -> correlation
     {
       path: "/correlation",
-      name: "correlation",
       component: AppLayout,
       meta: {
         needsAuth: true,
       },
       children: [
         {
-          path: "/",
+          path: "",
+          name: "correlation",
           component: CorrelationView,
         },
       ],
@@ -141,14 +141,14 @@ const router = createRouter({
     // -> profile
     {
       path: "/profile",
-      name: "profile",
       component: AppLayout,
       meta: {
         needsAuth: true,
       },
       children: [
         {
-          path: "/",
+          path: "",
+          name: "profile",
           component: ProfileView,
         },
       ],
@@ -161,17 +161,19 @@ router.beforeEach(async (to, from, next) => {
   if (!to.meta.needsAuth) {
     if (data.user) {
       console.log("💁 already authenticated, leave this route");
-      return router.push({ name: "home" });
+      next({ name: "home" });
+    } else {
+      console.log("🔐not yet authenticated");
+      next();
     }
-    console.log("🔐not yet authenticated");
-    return next();
   } else {
     if (!data.user) {
       console.log("🙅not authenticated yet, go to entry");
-      return router.push({ name: "entry" });
+      next({ name: "entry" });
+    } else {
+      console.log("🔓authentication successful");
+      next();
     }
-    console.log("🔓authentication successful");
-    return next();
   }
 });
 
