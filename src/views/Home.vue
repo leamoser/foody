@@ -8,12 +8,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { supabase } from "@/services/supabase";
 
 const mail = ref<string>('')
 const getMagicLink = async (): Promise<void> => {
-  console.log('get magic link', mail.value);
+  const { error, data } = await supabase.auth.signInWithOtp({
+    email: mail.value
+  })
 }
+const loadProfile = async (): Promise<void> => {
+  const { error, data } = await supabase.auth.getUser();
+  console.log(data.user);
+}
+onMounted(() => {
+  loadProfile();
+})
 </script>
 
 <style scoped lang="scss">
