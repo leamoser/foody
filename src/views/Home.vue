@@ -8,3 +8,12 @@ const env = import.meta.env.VITE_TEST
     <p>Test Variable .env: {{ env }}</p>
   </main>
 </template>
+
+<style scoped lang="scss">
+main{
+  h1{
+    font-size: 2rem;
+    color: $variable;
+  }
+}
+</style>
