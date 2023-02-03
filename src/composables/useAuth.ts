@@ -3,11 +3,20 @@ import { useRouter } from "vue-router";
 import { ref } from "vue";
 export const useAuth = () => {
   const router = useRouter();
+  const baseurl = import.meta.env.VITE_BASE_URL;
   const isProcessing = ref<boolean>(false);
   const signIn = async (email: string): Promise<void> => {
     isProcessing.value = true;
     const { error, data } = await supabase.auth.signInWithOtp({
       email,
+    });
+    isProcessing.value = false;
+  };
+  const signUp = async (email: string): Promise<void> => {
+    isProcessing.value = true;
+    const { error, data } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: `${baseurl}/user-info` },
     });
     isProcessing.value = false;
   };
@@ -21,7 +30,7 @@ export const useAuth = () => {
   };
   return {
     signIn,
-    signUp: signIn,
+    signUp,
     signOut,
     isProcessing,
   };

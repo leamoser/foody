@@ -1,5 +1,6 @@
 import { computed } from "vue";
 import type { ComputedRef } from "vue";
+import { supabase } from "@/services/supabase";
 
 export const useUser = (): {
   userLoggedIn: ComputedRef<boolean>;
@@ -7,7 +8,7 @@ export const useUser = (): {
   uid: ComputedRef<string | false>;
   email: ComputedRef<string | false>;
 } => {
-  // -> userdata
+  // -> auth user data
   const userdata = localStorage.getItem("sb-lbauizlhaxtupjrudtln-auth-token");
   const userLoggedIn = computed<boolean>(() => !!userdata);
   const user = computed<{ [key: string]: string } | false>(() =>

@@ -647,6 +647,11 @@ d@1, d@^1.0.1:
     es5-ext "^0.10.50"
     type "^1.0.1"
 
+datenow-ts@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/datenow-ts/-/datenow-ts-2.0.0.tgz#20bb35b83f021b006d590afa60c38c7fd5296a36"
+  integrity sha512-ezDPjgb2wdEPvKrlmM3iYPv2DkhHdj3owvafAgfqnJBgOvKKfxawWpxqQ8e/4/EHEGOWxhv0Xoaste3CTJTVuA==
+
 de-indent@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"

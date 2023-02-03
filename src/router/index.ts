@@ -8,6 +8,7 @@ import EntryLayout from "@/layouts/EntryLayout.vue";
 import EntryView from "@/views/EntryView.vue";
 import SignInView from "@/views/SignInView.vue";
 import SignUpView from "@/views/SignUpView.vue";
+import UserInfoView from "@/views/UserInfoView.vue";
 import HomeView from "@/views/HomeView.vue";
 import IssuesView from "@/views/IssuesView.vue";
 import MealView from "@/views/MealView.vue";
@@ -61,6 +62,21 @@ const router = createRouter({
           path: "",
           name: "sign-up",
           component: SignUpView,
+        },
+      ],
+    },
+    // -> user info
+    {
+      path: "/user-info",
+      component: AuthLayout,
+      meta: {
+        needsAuth: true,
+      },
+      children: [
+        {
+          path: "",
+          name: "user-info",
+          component: UserInfoView,
         },
       ],
     },
@@ -158,19 +174,11 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const { userLoggedIn } = useUser();
+  const { data } = await supabase.auth.getUser();
   if (!to.meta.needsAuth) {
-    if (userLoggedIn.value) {
-      next({ name: "home" });
-    } else {
-      next();
-    }
+    data.user ? next({ name: "home" }) : next();
   } else {
-    if (!userLoggedIn.value) {
-      next({ name: "entry" });
-    } else {
-      next();
-    }
+    !data.user ? next({ name: "entry" }) : next();
   }
 });
 
