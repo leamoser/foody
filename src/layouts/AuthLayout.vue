@@ -1,6 +1,9 @@
 <template>
-  <mark>layout: auth</mark>
-  <router-view />
+  <main>
+    <p>foody</p>
+    <br /><br />
+    <router-view />
+  </main>
 </template>
 
 <script setup lang="ts"></script>
