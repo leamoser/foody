@@ -4,7 +4,7 @@ import type { ComputedRef } from "vue";
 export const useUser = (): {
   userLoggedIn: ComputedRef<boolean>;
   user: ComputedRef<{ [key: string]: any } | false>;
-  id: ComputedRef<string | false>;
+  uid: ComputedRef<string | false>;
   email: ComputedRef<string | false>;
 } => {
   // -> userdata
@@ -13,7 +13,7 @@ export const useUser = (): {
   const user = computed<{ [key: string]: string } | false>(() =>
     userdata ? JSON.parse(userdata)?.user : false
   );
-  const id = computed<string | false>(() =>
+  const uid = computed<string | false>(() =>
     user.value ? user.value.id : false
   );
   const email = computed<string | false>(() =>
@@ -22,7 +22,7 @@ export const useUser = (): {
   return {
     userLoggedIn,
     user,
-    id,
+    uid,
     email,
   };
 };
