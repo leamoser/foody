@@ -5,9 +5,13 @@
 
 <script setup lang="ts">
 import { supabase } from "@/services/supabase";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const logout = async (): Promise<void> => {
   const { error } = await supabase.auth.signOut();
-  console.log("log out", error);
+  if (!error) {
+    await router.push({ name: "entry" });
+  }
 };
 </script>
 
