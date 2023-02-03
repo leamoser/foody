@@ -11,7 +11,7 @@
 import { ref } from "vue";
 
 const mail = ref<string>('')
-const getMagicLink = (): void  => {
+const getMagicLink = async (): Promise<void> => {
   console.log('get magic link', mail.value);
 }
 </script>
