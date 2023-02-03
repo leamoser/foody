@@ -1,20 +1,14 @@
 <template>
   <label for="email">Email</label>
   <input type="email" id="email" v-model="email" /><br />
-  <button @click="signUp">Mailadresse bestätigen</button>
+  <button @click="signUp(email)">Mailadresse bestätigen</button>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { supabase } from "@/services/supabase";
-
+import { useAuth } from "@/composables/useAuth";
 const email = ref<string>("");
-const signUp = async (): Promise<void> => {
-  const { error, data } = await supabase.auth.signInWithOtp({
-    email: email.value,
-  });
-  console.log("sign up", email.value, error, data);
-};
+const { signUp } = useAuth();
 </script>
 
 <style lang="scss" scoped></style>

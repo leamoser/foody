@@ -14,6 +14,7 @@ import MealView from "@/views/MealView.vue";
 import CalendarView from "@/views/CalendarView.vue";
 import CorrelationView from "@/views/CorrelationView.vue";
 import ProfileView from "@/views/ProfileView.vue";
+import { useUser } from "@/composables/useUser";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -157,21 +158,17 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const { data } = await supabase.auth.getUser();
+  const { userLoggedIn } = useUser();
   if (!to.meta.needsAuth) {
-    if (data.user) {
-      console.log("💁 already authenticated, leave this route");
+    if (userLoggedIn.value) {
       next({ name: "home" });
     } else {
-      console.log("🔐not yet authenticated");
       next();
     }
   } else {
-    if (!data.user) {
-      console.log("🙅not authenticated yet, go to entry");
+    if (!userLoggedIn.value) {
       next({ name: "entry" });
     } else {
-      console.log("🔓authentication successful");
       next();
     }
   }
