@@ -1,6 +1,13 @@
 @import "reusables";
 @import "resets";
 
+// -> page
+main {
+  min-height: 100vh;
+  padding: $gap_around;
+  background: $color_light;
+}
+
 // -> typography
 html, body {
   font-size: $font_size-base;

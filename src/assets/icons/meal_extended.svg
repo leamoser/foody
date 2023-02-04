@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="76" height="34.52" viewBox="0 0 76 34.52">
+    <g id="Gruppe_133" transform="translate(-218 -37)">
+        <g id="Gruppe_131" transform="translate(230.333 37.5)">
+            <path id="Pfad_27" d="M251.833,37.5l-2,20H238.5l-2-20Z" transform="translate(-236.5 -37.5)" fill="#fff" stroke="#0062ff" stroke-miterlimit="10" stroke-width="1"/>
+        </g>
+        <g id="Ellipse_2" transform="translate(218 52.147)" fill="#fff" stroke="#0062ff" stroke-miterlimit="10" stroke-width="1">
+            <ellipse cx="38" cy="9.686" rx="38" ry="9.686" stroke="none"/>
+            <ellipse cx="38" cy="9.686" rx="37.5" ry="9.186" fill="none"/>
+        </g>
+        <g id="Gruppe_132" transform="translate(238.667 50.092)">
+            <path id="Pfad_28" d="M249,68.287s1.667,5.843,11.667,5.843,10-2.667,15.333-1.333,8.881.824,8.107-1.588-2.107-3.079-5.441-3.745-8-4.667-13.333-4S251.333,62.445,249,68.287Z" transform="translate(-249 -58.721)" fill="#fff" stroke="#0062ff" stroke-miterlimit="10" stroke-width="1"/>
+            <path id="Pfad_29" d="M249,61.287s1.667,5.843,11.667,5.843,10-2.667,15.333-1.333,8.881.824,8.107-1.588-2.107-3.079-5.441-3.745-8-4.667-13.333-4S251.333,55.445,249,61.287Z" transform="translate(-249 -56.388)" fill="#fff" stroke="#0062ff" stroke-miterlimit="10" stroke-width="1"/>
+            <line id="Linie_30"  y1="4.899" transform="translate(0 4.667)" fill="#fff" stroke="#0062ff" stroke-miterlimit="10" stroke-width="1"/>
+            <line id="Linie_31"  y1="3.745" transform="translate(35.107 8.741)" fill="#fff" stroke="#0062ff" stroke-miterlimit="10" stroke-width="1"/>
+            <path id="Pfad_30" d="M260.137,61.5s-3.979-.075-2.323,1.963,5.017,2.787,5.671,1.745.4-3.709-1.473-3.709Z" transform="translate(-251.803 -58.092)" fill="#fff" stroke="#0062ff" stroke-miterlimit="10" stroke-width="1"/>
+        </g>
+    </g>
+</svg>

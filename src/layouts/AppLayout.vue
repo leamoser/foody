@@ -1,6 +1,8 @@
 <template>
-  <button @click="signOut">logout</button><br />
-  <router-view />
+  <main>
+    <button @click="signOut">logout</button><br />
+    <router-view />
+  </main>
 </template>
 
 <script setup lang="ts">
