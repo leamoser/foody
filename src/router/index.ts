@@ -26,7 +26,7 @@ const router = createRouter({
       component: EntryLayout,
       meta: {
         needsAuth: false,
-        title: "",
+        pagetitle: "",
       },
       children: [
         {
@@ -42,7 +42,7 @@ const router = createRouter({
       component: AuthLayout,
       meta: {
         needsAuth: false,
-        title: "Login",
+        pagetitle: "Login",
       },
       children: [
         {
@@ -58,7 +58,7 @@ const router = createRouter({
       component: AuthLayout,
       meta: {
         needsAuth: false,
-        title: "Neu anmelden",
+        pagetitle: "Neu anmelden",
       },
       children: [
         {
@@ -74,7 +74,7 @@ const router = createRouter({
       component: AuthLayout,
       meta: {
         needsAuth: true,
-        title: "Profil aufsetzen",
+        pagetitle: "Profil aufsetzen",
       },
       children: [
         {
@@ -90,7 +90,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
-        title: "Home",
+        pagetitle: "Home",
       },
       children: [
         {
@@ -106,7 +106,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
-        title: "Beschwerden",
+        pagetitle: "Beschwerden",
       },
       children: [
         {
@@ -122,7 +122,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
-        title: "Mahlzeit",
+        pagetitle: "Mahlzeit",
       },
       children: [
         {
@@ -138,7 +138,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
-        title: "Kalender",
+        pagetitle: "Kalender",
       },
       children: [
         {
@@ -154,7 +154,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
-        title: "Korrelationen",
+        pagetitle: "Korrelationen",
       },
       children: [
         {
@@ -170,7 +170,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
-        title: "Dein Profil",
+        pagetitle: "Dein Profil",
       },
       children: [
         {
