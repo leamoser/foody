@@ -1,5 +1,5 @@
 <template>
-  <section class="ct-entry">
+  <section class="ct-entry-view">
     <div class="ct-entrylogo">
       <img :src="MealIcon" alt="Icon Mahlzeit" />
       <div class="ct-logo">
@@ -21,7 +21,7 @@ const appname = import.meta.env.VITE_BASE_APPNAME;
 </script>
 
 <style lang="scss" scoped>
-.ct-entry {
+.ct-entry-view {
   @include flex(column, center, center, px(20));
   height: calc(100vh - multiply($gap_around, 2));
   text-align: center;

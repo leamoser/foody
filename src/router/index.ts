@@ -26,6 +26,7 @@ const router = createRouter({
       component: EntryLayout,
       meta: {
         needsAuth: false,
+        title: "",
       },
       children: [
         {
@@ -41,6 +42,7 @@ const router = createRouter({
       component: AuthLayout,
       meta: {
         needsAuth: false,
+        title: "Login",
       },
       children: [
         {
@@ -56,6 +58,7 @@ const router = createRouter({
       component: AuthLayout,
       meta: {
         needsAuth: false,
+        title: "Neu anmelden",
       },
       children: [
         {
@@ -71,6 +74,7 @@ const router = createRouter({
       component: AuthLayout,
       meta: {
         needsAuth: true,
+        title: "Profil aufsetzen",
       },
       children: [
         {
@@ -86,6 +90,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
+        title: "Home",
       },
       children: [
         {
@@ -101,6 +106,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
+        title: "Beschwerden",
       },
       children: [
         {
@@ -116,6 +122,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
+        title: "Mahlzeit",
       },
       children: [
         {
@@ -131,6 +138,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
+        title: "Kalender",
       },
       children: [
         {
@@ -146,6 +154,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
+        title: "Korrelationen",
       },
       children: [
         {
@@ -161,6 +170,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
+        title: "Dein Profil",
       },
       children: [
         {

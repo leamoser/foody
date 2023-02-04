@@ -22,6 +22,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 .ct-logotitle {
   @include flex(row, flex-start, center, 10px);
+  z-index: 5;
 }
 .ct-logo {
   display: inline-block;

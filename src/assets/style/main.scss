@@ -40,3 +40,28 @@ h2, .typo-h2 {
     color: $color_accentdark !important;
   }
 }
+
+// -> input
+.form-field{
+  width: 100%;
+  label {
+    @include f-sansserif($font_size-info);
+    display: block;
+    margin-bottom: px(6);
+  }
+  input {
+    padding: px(10);
+    width: 100%;
+    border: 1px solid $color_dark;
+    border-radius: 0;
+    @include f-sansserif($font-size-text);
+    &:focus{
+      outline: none;
+    }
+  }
+}
+.form-mono {
+  input{
+    font-family: "antarctican-mono", monospace;
+  }
+}
