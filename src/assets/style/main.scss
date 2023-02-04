@@ -1,8 +1,35 @@
 @import "reusables";
-*{
-  margin: 0 0;
-  padding: 0 0;
+@import "resets";
+
+// -> typography
+html, body {
+  font-size: $font_size-base;
 }
-body{
-  background: orange;
+h1, .typo-h1 {
+  &:not(.typo-mono) { @include f-sansserif($font_size-h1) }
+  &.typo-mono { @include f-mono($font_size-h1) }
+}
+h2, .typo-h2 {
+  &:not(.typo-mono) { @include f-sansserif($font_size-h2) }
+  &.typo-mono { @include f-mono($font_size-h2) }
+}
+.typo-text {
+  &:not(.typo-mono) { @include f-sansserif($font_size-text) }
+  &.typo-mono { @include f-mono($font_size-text) }
+}
+.typo-info {
+  &:not(.typo-mono) { @include f-sansserif($font_size-info) }
+  &.typo-mono { @include f-mono($font_size-info) }
+}
+.typo-dark {
+  color: $color_dark !important;
+  *, ::marker{
+    color: $color_dark !important;
+  }
+}
+.typo-accent {
+  color: $color_accentdark !important;
+  *, ::marker{
+    color: $color_accentdark !important;
+  }
 }

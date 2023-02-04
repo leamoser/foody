@@ -1,1 +1,90 @@
-$variable: #ff55ff;
+// -> fonts
+@import url("https://use.typekit.net/wwx2frv.css");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+$font_size-base: clamp(19px, 4.5px + 1vw, 22px);
+$font_lineheight-base: 120%;
+$font_size-h1: 1.5rem;
+$font_size-h2: 1.125rem;
+$font_size-text: 0.875rem;
+$font_size-info: 0.625rem;
+@mixin font($size, $lineheight, $color, $weight: normal) {
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $lineheight;
+  color: $color;
+}
+@mixin f-mono($size, $lineheight: $font_lineheight-base, $color: $color_dark) {
+  @include font($size, $lineheight, $color, 400);
+  font-family: "antarctican-mono", monospace;
+}
+@mixin f-sansserif($size, $lineheight: $font_lineheight-base, $color: $color_dark) {
+  @include font($size, $lineheight, $color, 500);
+  font-family: "Inter", sans-serif;
+}
+
+
+// -> colors
+$color_dark: #0062FF;
+$color_dark-20: #0062FF32;
+$color_accentdark: #FF6C00;
+$color_accentdark-20: #FF6C0032;
+$color_accentlight: #FFDDC4;
+$color_accentlight-20: #FFDDC432;
+$color_light: #ffffff;
+$color_light-20: #ffffff32;
+
+// -> gaps
+$gap_around: px(25);
+$gap_inner-big: px(12);
+$gap_inner-small: px(7);
+
+// -> breakpoints
+$breakpoint_sm: 640px;
+@mixin sm-up {
+  @media (min-width: $breakpoint_sm) {
+    @content;
+  }
+}
+
+// -> useful mixins
+@mixin flex($direction: row,$justify: center,$align: center, $gap: 10px) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+}
+@mixin grid($rows_desktop: repeat(2,1fr),$rows_tablet: $rows_desktop,$rows_mobile: 1fr, $gap: $gap_around) {
+  display: grid;
+  grid-gap: $gap;
+  grid-template-columns: $rows_desktop;
+  @include md-down {
+    grid-template-columns: $rows_tablet;
+  }
+  @include sm-down {
+    grid-template-columns: $rows_mobile;
+  }
+  > * {
+    width: 100%;
+  }
+}
+
+// -> useful functions
+@function px($px) {
+  @return calc((#{$px} / 16) * 1rem)
+}
+@function negative($value) {
+  @return calc(#{$value} * -1)
+}
+@function half($value) {
+  @return calc(#{$value} / 2)
+}
+@function halfnegative($value) {
+  @return negative(half($value))
+}
+@function multiply($value, $multiplier) {
+  @return calc(#{$value} * #{$multiplier})
+}
+@function divide($value, $divider) {
+  @return calc(#{$value} / #{$divider})
+}
