@@ -16,6 +16,16 @@ import CalendarView from "@/views/CalendarView.vue";
 import CorrelationView from "@/views/CorrelationView.vue";
 import ProfileView from "@/views/ProfileView.vue";
 import { useUser } from "@/composables/useUser";
+// -> ts
+export {};
+import "vue-router";
+declare module "vue-router" {
+  interface RouteMeta {
+    needsAuth: boolean;
+    // is optional
+    pagetitle: string;
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
