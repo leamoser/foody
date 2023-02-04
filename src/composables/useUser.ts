@@ -1,18 +1,13 @@
-import { computed } from "vue";
-import type { ComputedRef } from "vue";
+import { computed, onMounted, ref } from "vue";
+import type { peopleTable } from "@/composables/useSupabase";
 import { supabase } from "@/services/supabase";
-
-export const useUser = (): {
-  userLoggedIn: ComputedRef<boolean>;
-  user: ComputedRef<{ [key: string]: any } | false>;
-  uid: ComputedRef<string | false>;
-  email: ComputedRef<string | false>;
-} => {
-  // -> auth user data
-  const userdata = localStorage.getItem("sb-lbauizlhaxtupjrudtln-auth-token");
-  const userLoggedIn = computed<boolean>(() => !!userdata);
+import { watchArray } from "@vueuse/core";
+export const useUser = () => {
+  // -> auth data
+  const authdata = localStorage.getItem("sb-lbauizlhaxtupjrudtln-auth-token");
+  const userLoggedIn = computed<boolean>(() => !!authdata);
   const user = computed<{ [key: string]: string } | false>(() =>
-    userdata ? JSON.parse(userdata)?.user : false
+    authdata ? JSON.parse(authdata)?.user : false
   );
   const uid = computed<string | false>(() =>
     user.value ? user.value.id : false
@@ -20,10 +15,27 @@ export const useUser = (): {
   const email = computed<string | false>(() =>
     user.value ? user.value.email : false
   );
+  // -> user data
+  const userdata = ref<peopleTable | false>(false);
+  const getUserdata = async (): Promise<void> => {
+    const { data: people } = await supabase
+      .from("people")
+      .select("*")
+      .eq("uid", uid.value);
+    if (people?.length) {
+      userdata.value = people[0];
+    } else {
+      userdata.value = false;
+    }
+  };
+  onMounted(async () => {
+    await getUserdata();
+  });
   return {
     userLoggedIn,
     user,
     uid,
     email,
+    userdata,
   };
 };

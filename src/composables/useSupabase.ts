@@ -36,10 +36,25 @@ export const useSupabase = () => {
     isProcessing.value = false;
     wasSuccessful.value = status === 201;
   };
+  const getSinglePerson = async (uid: string): Promise<peopleTable | false> => {
+    isProcessing.value = true;
+    const { data: people } = await supabase
+      .from("people")
+      .select("*")
+      .eq("uid", uid);
+    isProcessing.value = false;
+    if (people?.length) {
+      wasSuccessful.value = true;
+      return people[0];
+    } else {
+      return false;
+    }
+  };
 
   // -> returns
   return {
     addPeople,
+    getSinglePerson,
     isProcessing,
     wasSuccessful,
   };
