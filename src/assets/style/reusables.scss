@@ -54,15 +54,12 @@ $breakpoint_sm: 640px;
   align-items: $align;
   gap: $gap;
 }
-@mixin grid($rows_desktop: repeat(2,1fr),$rows_tablet: $rows_desktop,$rows_mobile: 1fr, $gap: $gap_around) {
+@mixin grid($rows: repeat(2,1fr),$rows_big: repeat(4, 1fr), $gap: $gap_around) {
   display: grid;
   grid-gap: $gap;
-  grid-template-columns: $rows_desktop;
-  @include md-down {
-    grid-template-columns: $rows_tablet;
-  }
-  @include sm-down {
-    grid-template-columns: $rows_mobile;
+  grid-template-columns: $rows;
+  @include sm-up {
+    grid-template-columns: $rows_big;
   }
   > * {
     width: 100%;

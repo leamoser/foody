@@ -1,5 +1,5 @@
 <template>
-  <mark>MealView.vue</mark>
+  <mark>CalendarView.vue</mark>
 </template>
 
 <script setup lang="ts"></script>
