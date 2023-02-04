@@ -34,9 +34,9 @@ $color_light: #ffffff;
 $color_light-20: #ffffff32;
 
 // -> gaps
-$gap_around: px(25);
-$gap_inner-big: px(12);
-$gap_inner-small: px(7);
+$gap_around: 1.5625rem;
+$gap_inner-big: 0.75rem;
+$gap_inner-small: 0.4375rem;
 
 // -> breakpoints
 $breakpoint_sm: 640px;

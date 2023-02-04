@@ -1,10 +1,20 @@
 <template>
   <main>
     <router-view />
-    <p>Sa, 03.04.2023</p>
+    <div class="ct-date">
+      <current-date />
+    </div>
   </main>
 </template>
 
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+import CurrentDate from "@/components/layout/CurrentDate.vue";
+</script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.ct-date {
+  position: absolute;
+  left: $gap_around;
+  bottom: $gap_around;
+}
+</style>
