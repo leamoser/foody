@@ -13,9 +13,9 @@ import HomeView from "@/views/HomeView.vue";
 import IssuesView from "@/views/IssuesView.vue";
 import MealView from "@/views/MealView.vue";
 import CalendarView from "@/views/CalendarView.vue";
+import DayView from "@/views/DayView.vue";
 import CorrelationView from "@/views/CorrelationView.vue";
 import ProfileView from "@/views/ProfileView.vue";
-import { useUser } from "@/composables/useUser";
 // -> ts
 export {};
 import "vue-router";
@@ -155,6 +155,22 @@ const router = createRouter({
           path: "",
           name: "calendar",
           component: CalendarView,
+        },
+      ],
+    },
+    // -> day
+    {
+      path: "/calendar/:day",
+      component: AppLayout,
+      meta: {
+        needsAuth: true,
+        pagetitle: "Einzelner Tag",
+      },
+      children: [
+        {
+          path: "",
+          name: "day",
+          component: DayView,
         },
       ],
     },
