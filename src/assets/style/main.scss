@@ -57,7 +57,9 @@ h2, .typo-h2 {
 .form {
   @include flex(column, flex-start, center, $gap-inner-small);
   input[type="date"]::-webkit-inner-spin-button,
-  input[type="date"]::-webkit-calendar-picker-indicator {
+  input[type="time"]::-webkit-inner-spin-button,
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator{
     display: none;
     -webkit-appearance: none;
   }
@@ -82,6 +84,7 @@ h2, .typo-h2 {
 }
 .form-line {
   @include flex(row, center, center, $gap_inner-big);
+  width: 100%;
 }
 .form-mono {
   input{
