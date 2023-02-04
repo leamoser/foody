@@ -1,7 +1,10 @@
 <template>
-  <mark>ProfileView.vue</mark>
+  <button @click="signOut">logout</button>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAuth } from "@/composables/useAuth";
+const { signOut } = useAuth();
+</script>
 
 <style lang="scss" scoped></style>

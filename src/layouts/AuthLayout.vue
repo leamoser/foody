@@ -1,7 +1,9 @@
 <template>
   <main>
     <logo :title="route.meta.pagetitle" />
-    <router-view />
+    <section class="ct-content-auth">
+      <router-view />
+    </section>
   </main>
 </template>
 

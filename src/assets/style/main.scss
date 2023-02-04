@@ -7,6 +7,18 @@ main {
   padding: $gap_around;
   background: $color_light;
 }
+.ct-content {
+  margin-top: $gap_top;
+}
+.ct-content-auth {
+  margin-top: $gap_top;
+  position: absolute;
+  top: calc($gap_around + $gap_top);
+  left: $gap_around;
+  height: calc((100vh - multiply($gap_top, 2)) - multiply($gap_around, 3));
+  width: calc(100vw - multiply($gap_around, 2));
+  @include flex(column, center, center, $gap_inner-big);
+}
 
 // -> typography
 html, body {

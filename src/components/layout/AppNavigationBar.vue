@@ -47,7 +47,6 @@ const navitems = [
 const navigateTo = (name: string) => {
   router.push({ name: name });
 };
-console.log(route);
 </script>
 
 <style lang="scss" scoped>

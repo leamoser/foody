@@ -1,5 +1,5 @@
 <template>
-  <p>Hallo {{ email }}</p>
+  <p class="typo-text">Hallo {{ email }}</p>
 </template>
 
 <script setup lang="ts">

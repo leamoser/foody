@@ -1,49 +1,47 @@
 <template>
-  <section class="ct-user-info-view">
-    <p class="typo-text">Salü {{ email }},<br />schön bist du hier!</p>
-    <p class="typo-text">
-      Um die App korrekt nutzen zu können, musst du zuerst dein Profil
-      aufsetzen. Dazu brauchen wir einige Infos von dir.
-    </p>
-    <div class="form">
-      <div class="form-field">
-        <label for="name">Dein Name</label>
+  <p class="typo-text">Salü {{ email }},<br />schön bist du hier!</p>
+  <p class="typo-text">
+    Um die App korrekt nutzen zu können, musst du zuerst dein Profil aufsetzen.
+    Dazu brauchen wir einige Infos von dir.
+  </p>
+  <div class="form">
+    <div class="form-field">
+      <label for="name">Dein Name</label>
+      <input
+        type="text"
+        id="name"
+        v-model="name"
+        :readonly="isProcessing"
+      /><br />
+    </div>
+    <div class="form-line">
+      <div class="form-field form-mono">
+        <label for="birthday">Dein Geburtsdatum</label>
         <input
-          type="text"
-          id="name"
-          v-model="name"
+          type="date"
+          id="birthday"
+          v-model="birthday"
           :readonly="isProcessing"
         /><br />
       </div>
-      <div class="form-line">
-        <div class="form-field form-mono">
-          <label for="birthday">Dein Geburtsdatum</label>
-          <input
-            type="date"
-            id="birthday"
-            v-model="birthday"
-            :readonly="isProcessing"
-          /><br />
-        </div>
-        <div class="form-field form-mono">
-          <label for="weight">Dein Gewicht (in kg)</label>
-          <input
-            type="number"
-            id="weight"
-            v-model="weight"
-            :readonly="isProcessing"
-          /><br />
-        </div>
+      <div class="form-field form-mono">
+        <label for="weight">Dein Gewicht (in kg)</label>
+        <input
+          type="number"
+          id="weight"
+          v-model="weight"
+          :readonly="isProcessing"
+        /><br />
       </div>
     </div>
-    <p class="typo-text">
-      Wir wissen nun alles das über dich, was wichtig ist um dein Essverhalten
-      zu tracken und Schlüsse daraus zu ziehen.
-    </p>
-    <action-button :disabled="!formValid || isProcessing" @click="addUserInfo">
-      {{ isProcessing ? "wird gespeichert..." : "loslegen" }}
-    </action-button>
-  </section>
+  </div>
+  <p class="typo-text">
+    Wir wissen nun alles das über dich, was wichtig ist um dein Essverhalten zu
+    tracken und Schlüsse daraus zu ziehen.
+  </p>
+  <action-button :disabled="!formValid || isProcessing" @click="addUserInfo">
+    {{ isProcessing ? "wird gespeichert..." : "loslegen" }}
+  </action-button>
 </template>
 
 <script setup lang="ts">
@@ -77,7 +75,10 @@ const addUserInfo = async (): Promise<void> => {
 };
 
 onMounted(async () => {
-  let { data: people } = await supabase.from("people").select("uid");
+  let { data: people } = await supabase
+    .from("people")
+    .select("*")
+    .eq("uid", uid.value);
   people?.length
     ? await router.push({ name: "home" })
     : await router.push({ name: "user-info" });
@@ -85,12 +86,7 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
-.ct-user-info-view {
+* {
   width: 100%;
-  padding-top: px(50);
-  @include flex(column, center, center, $gap_inner-big);
-  > * {
-    width: 100%;
-  }
 }
 </style>
