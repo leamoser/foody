@@ -1,6 +1,6 @@
 <template>
   <main>
-    <logo :title="route.meta.title || ''" />
+    <logo :title="route.meta?.title || ''" />
     <router-view />
   </main>
 </template>
