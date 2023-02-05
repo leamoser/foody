@@ -64,7 +64,6 @@ import { create, format } from "datenow-ts";
 import { useUser } from "@/composables/useUser";
 import { useSupabase } from "@/composables/useSupabase";
 import { useRouter } from "vue-router";
-
 const { uid } = useUser();
 const { addMeal, isProcessing, wasSuccessful } = useSupabase();
 const router = useRouter();
@@ -128,7 +127,7 @@ onMounted(() => {
 }
 .ct-submit {
   position: fixed;
-  bottom: px(80);
+  bottom: px(65);
   left: 0;
   width: 100vw;
   @include flex();

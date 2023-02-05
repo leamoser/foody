@@ -60,6 +60,7 @@ nav {
   .navitem {
     padding: 0 0 px(6) 0;
     height: 100%;
+    background: $color_light;
     @include flex(column, flex-end, center, px(4));
     img {
       object-fit: contain;

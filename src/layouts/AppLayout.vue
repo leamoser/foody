@@ -22,6 +22,9 @@ const route = useRoute();
 </script>
 
 <style lang="scss" scoped>
+main {
+  padding-bottom: px(150);
+}
 .ct-head {
   @include flex(row, space-between, center);
 }
