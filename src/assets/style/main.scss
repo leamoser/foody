@@ -32,7 +32,7 @@ h2, .typo-h2 {
   &:not(.typo-mono) { @include f-sansserif($font_size-h2) }
   &.typo-mono { @include f-mono($font_size-h2) }
 }
-.typo-text {
+p, .typo-text {
   &:not(.typo-mono) { @include f-sansserif($font_size-text) }
   &.typo-mono { @include f-mono($font_size-text) }
 }

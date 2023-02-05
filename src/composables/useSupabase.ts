@@ -16,6 +16,18 @@ interface peopleTableInsert {
   uid: string;
   weight: number;
 }
+export interface mealsTable {
+  created_at?: string | null;
+  title?: string | null;
+  food?: string | null;
+  uid?: string | null;
+}
+interface mealsTableInsert {
+  created_at: Date;
+  title: string;
+  food: string;
+  uid: string;
+}
 
 // -> methods
 export const useSupabase = () => {
@@ -51,10 +63,26 @@ export const useSupabase = () => {
     }
   };
 
+  // -> table: meals
+  const addMeal = async (data: mealsTableInsert) => {
+    isProcessing.value = true;
+    const { status } = await supabase.from("meals").insert([
+      {
+        created_at: data.created_at,
+        title: data.title,
+        food: data.food,
+        uid: data.uid,
+      },
+    ]);
+    isProcessing.value = false;
+    wasSuccessful.value = status === 201;
+  };
+
   // -> returns
   return {
     addPeople,
     getSinglePerson,
+    addMeal,
     isProcessing,
     wasSuccessful,
   };
