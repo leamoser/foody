@@ -19,6 +19,7 @@ import ProfileView from "@/views/ProfileView.vue";
 // -> ts
 export {};
 import "vue-router";
+import { useUser } from "@/composables/useUser";
 declare module "vue-router" {
   interface RouteMeta {
     needsAuth: boolean;
@@ -116,7 +117,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
-        pagetitle: "Beschwerden",
+        pagetitle: "Beschwerden eintragen",
       },
       children: [
         {
@@ -132,7 +133,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
-        pagetitle: "Mahlzeit",
+        pagetitle: "Mahlzeit eintragen",
       },
       children: [
         {
@@ -148,7 +149,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
-        pagetitle: "Kalender",
+        pagetitle: "Dein Kalender",
       },
       children: [
         {
@@ -180,7 +181,7 @@ const router = createRouter({
       component: AppLayout,
       meta: {
         needsAuth: true,
-        pagetitle: "Korrelationen",
+        pagetitle: "Korrelationen ansehen",
       },
       children: [
         {
