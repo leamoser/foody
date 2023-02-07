@@ -1,6 +1,7 @@
 import { supabase } from "@/services/supabase";
-import { useRouter } from "vue-router";
 import { ref } from "vue";
+import { useUser } from "@/composables/useUser";
+import { modify, format } from "datenow-ts";
 
 // -> types
 export interface peopleTable {
@@ -43,6 +44,7 @@ interface issuesTableInsert {
 export const useSupabase = () => {
   const isProcessing = ref<boolean>(false);
   const wasSuccessful = ref<boolean>(false);
+  const { uid } = useUser();
 
   // -> table: people
   const addPeople = async (data: peopleTableInsert) => {
@@ -58,20 +60,6 @@ export const useSupabase = () => {
     isProcessing.value = false;
     wasSuccessful.value = status === 201;
   };
-  const getSinglePerson = async (uid: string): Promise<peopleTable | false> => {
-    isProcessing.value = true;
-    const { data: people } = await supabase
-      .from("people")
-      .select("*")
-      .eq("uid", uid);
-    isProcessing.value = false;
-    if (people?.length) {
-      wasSuccessful.value = true;
-      return people[0];
-    } else {
-      return false;
-    }
-  };
 
   // -> table: meals
   const addMeal = async (data: mealsTableInsert) => {
@@ -86,6 +74,27 @@ export const useSupabase = () => {
     ]);
     isProcessing.value = false;
     wasSuccessful.value = status === 201;
+  };
+  const mealsByUserAndDay = ref<mealsTable[] | false>(false);
+  const getMealsByUserAndDay = async (date: Date): Promise<void> => {
+    isProcessing.value = true;
+    const dayStart = format.toISO(modify.day.subtract(date, 1));
+    const dayEnd = format.toISO(date);
+    const { data: meals } = await supabase
+      .from("meals")
+      .select("*")
+      .eq("uid", uid.value)
+      .gte("created_at", dayStart)
+      .lte("created_at", dayEnd);
+    isProcessing.value = false;
+    if (meals) {
+      wasSuccessful.value = true;
+    }
+    if (meals?.length) {
+      mealsByUserAndDay.value = meals;
+    } else {
+      mealsByUserAndDay.value = false;
+    }
   };
 
   // -> table: issues
@@ -109,13 +118,37 @@ export const useSupabase = () => {
     isProcessing.value = false;
     wasSuccessful.value = status === 201;
   };
+  const issuesByUserAndDay = ref<issuesTable[] | false>(false);
+  const getIssuesByUserAndDay = async (date: Date): Promise<void> => {
+    isProcessing.value = true;
+    const dayStart = format.toISO(modify.day.subtract(date, 1));
+    const dayEnd = format.toISO(date);
+    const { data: issues } = await supabase
+      .from("issues")
+      .select("*")
+      .eq("uid", uid.value)
+      .gte("created_at", dayStart)
+      .lte("created_at", dayEnd);
+    isProcessing.value = false;
+    if (issues) {
+      wasSuccessful.value = true;
+    }
+    if (issues?.length) {
+      issuesByUserAndDay.value = issues;
+    } else {
+      issuesByUserAndDay.value = false;
+    }
+  };
 
   // -> returns
   return {
     addPeople,
-    getSinglePerson,
     addMeal,
+    getMealsByUserAndDay,
+    mealsByUserAndDay,
     issues,
+    getIssuesByUserAndDay,
+    issuesByUserAndDay,
     addIssue,
     isProcessing,
     wasSuccessful,

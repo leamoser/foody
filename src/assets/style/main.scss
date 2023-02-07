@@ -52,6 +52,12 @@ p, .typo-text {
     color: $color_accentdark !important;
   }
 }
+.typo-light {
+  color: $color_light !important;
+  *, ::marker{
+    color: $color_light !important;
+  }
+}
 
 // -> input
 .form {
