@@ -28,6 +28,16 @@ interface mealsTableInsert {
   food: string;
   uid: string;
 }
+export interface issuesTable {
+  created_at?: string | null;
+  issues?: string | null;
+  uid?: string | null;
+}
+interface issuesTableInsert {
+  created_at: Date;
+  issues: string;
+  uid: string;
+}
 
 // -> methods
 export const useSupabase = () => {
@@ -78,11 +88,35 @@ export const useSupabase = () => {
     wasSuccessful.value = status === 201;
   };
 
+  // -> table: issues
+  const issues = [
+    "Bauchweh",
+    "Durchfall",
+    "Verstopfung",
+    "Übelkeit",
+    "Blähungen",
+    "Ausschlag",
+  ];
+  const addIssue = async (data: issuesTableInsert) => {
+    isProcessing.value = true;
+    const { status } = await supabase.from("issues").insert([
+      {
+        created_at: data.created_at,
+        issues: data.issues,
+        uid: data.uid,
+      },
+    ]);
+    isProcessing.value = false;
+    wasSuccessful.value = status === 201;
+  };
+
   // -> returns
   return {
     addPeople,
     getSinglePerson,
     addMeal,
+    issues,
+    addIssue,
     isProcessing,
     wasSuccessful,
   };
