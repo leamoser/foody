@@ -2,26 +2,40 @@
   <view-title :title="activeDateTitle" :icon="DayIconUrl" />
   <div class="ct-entries">
     <p class="typo-info">Vorhandene Einträge</p>
-    <!--<div class="ct-entry" data-type="issue">
+    <div
+      v-for="(entry, index) in entriesSortedByTime"
+      :key="`entry-${index}`"
+      class="ct-entry"
+      :data-type="entry.type"
+      :class="{ 'typo-accent': entry.type === 'issue' }"
+    >
       <div class="ct-infos">
-        <p class="typo-mono">08:22</p>
-        <p>Znacht</p>
+        <p class="typo-mono">{{ entry.time }}</p>
+        <p>{{ entry.title }}</p>
       </div>
       <div class="ct-image">
-        <img :src="EditIconUrl" alt="Icon Bearbeiten" />
+        <img
+          :src="entry.type === 'issue' ? EditIconLightUrl : EditIconDarkUrl"
+          alt="Icon Bearbeiten"
+        />
       </div>
       <div class="ct-image">
-        <img :src="CrossIconUrl" alt="Icon Löschen" />
+        <img
+          :src="entry.type === 'issue' ? CrossIconLightUrl : CrossIconDarkUrl"
+          alt="Icon Löschen"
+        />
       </div>
-    </div>-->
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import DayIconUrl from "@/assets/icons/day_extended.svg";
 import ViewTitle from "@/components/layout/ViewTitle.vue";
-import EditIconUrl from "@/assets/icons/edit.svg";
-import CrossIconUrl from "@/assets/icons/cross_dark.svg";
+import EditIconDarkUrl from "@/assets/icons/edit.svg";
+import EditIconLightUrl from "@/assets/icons/edit_light.svg";
+import CrossIconDarkUrl from "@/assets/icons/cross_dark.svg";
+import CrossIconLightUrl from "@/assets/icons/cross.svg";
 import { useRoute } from "vue-router";
 import { computed, onMounted, ref } from "vue";
 import { create, format } from "datenow-ts";
@@ -33,6 +47,7 @@ const {
   getIssuesByUserAndDay,
   issuesByUserAndDay,
 } = useSupabase();
+const route = useRoute();
 
 const activeDate = ref<Date | false>(false);
 const activeDateTitle = computed<string>(() => {
@@ -42,7 +57,39 @@ const activeDateTitle = computed<string>(() => {
   return `${day}<br>${date}`;
 });
 
-const route = useRoute();
+interface ListEntry {
+  time: string;
+  title: string;
+  type: "meal" | "issue";
+}
+const entriesSortedByTime = computed<ListEntry[]>(() => {
+  if (!issuesByUserAndDay && !mealsByUserAndDay) return [];
+  const combinedEntries = [] as ListEntry[];
+  if (issuesByUserAndDay.value) {
+    issuesByUserAndDay.value.forEach((issue) => {
+      const date = create.dateByDatestring(issue?.created_at || "2022");
+      combinedEntries.push({
+        time: format.toTime("H:i", date),
+        title: "Beschwerden",
+        type: "issue",
+      });
+    });
+  }
+  if (mealsByUserAndDay.value) {
+    mealsByUserAndDay.value.forEach((meal) => {
+      const date = create.dateByDatestring(meal?.created_at || "2022");
+      combinedEntries.push({
+        time: format.toTime("H:i", date),
+        title: meal?.title || "Mahlzeit",
+        type: "meal",
+      });
+    });
+  }
+  return combinedEntries.sort((a, b) => {
+    return a.time.localeCompare(b.time);
+  });
+});
+
 onMounted(() => {
   activeDate.value = create.dateByDatestring(route.params.day.toString());
   getMealsByUserAndDay(activeDate.value);
