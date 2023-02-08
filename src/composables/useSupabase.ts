@@ -1,7 +1,7 @@
 import { supabase } from "@/services/supabase";
 import { ref } from "vue";
 import { useUser } from "@/composables/useUser";
-import { modify, format } from "datenow-ts";
+import { modify, format, create } from "datenow-ts";
 
 // -> types
 export interface peopleTable {
@@ -45,6 +45,10 @@ export const useSupabase = () => {
   const isProcessing = ref<boolean>(false);
   const wasSuccessful = ref<boolean>(false);
   const { uid } = useUser();
+  const dateWithResettedTime = (date: Date): Date => {
+    const datestring = format.toDate("Y-m-d", date, "de");
+    return create.dateByDatestring(datestring);
+  };
 
   // -> table: people
   const addPeople = async (data: peopleTableInsert) => {
@@ -78,8 +82,8 @@ export const useSupabase = () => {
   const mealsByUserAndDay = ref<mealsTable[] | false>(false);
   const getMealsByUserAndDay = async (date: Date): Promise<void> => {
     isProcessing.value = true;
-    const dayStart = format.toISO(modify.day.subtract(date, 1));
-    const dayEnd = format.toISO(date);
+    const dayStart = format.toISO(dateWithResettedTime(date));
+    const dayEnd = format.toISO(modify.day.add(dateWithResettedTime(date), 1));
     const { data: meals } = await supabase
       .from("meals")
       .select("*")
@@ -121,8 +125,8 @@ export const useSupabase = () => {
   const issuesByUserAndDay = ref<issuesTable[] | false>(false);
   const getIssuesByUserAndDay = async (date: Date): Promise<void> => {
     isProcessing.value = true;
-    const dayStart = format.toISO(modify.day.subtract(date, 1));
-    const dayEnd = format.toISO(date);
+    const dayStart = format.toISO(dateWithResettedTime(date));
+    const dayEnd = format.toISO(modify.day.add(dateWithResettedTime(date), 1));
     const { data: issues } = await supabase
       .from("issues")
       .select("*")
