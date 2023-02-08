@@ -18,6 +18,7 @@ interface peopleTableInsert {
   weight: number;
 }
 export interface mealsTable {
+  id: string | null;
   created_at?: string | null;
   title?: string | null;
   food?: string | null;
@@ -30,6 +31,7 @@ interface mealsTableInsert {
   uid: string;
 }
 export interface issuesTable {
+  id: string | null;
   created_at?: string | null;
   issues?: string | null;
   uid?: string | null;
@@ -100,6 +102,12 @@ export const useSupabase = () => {
       mealsByUserAndDay.value = [];
     }
   };
+  const deleteMealById = async (id: string) => {
+    isProcessing.value = true;
+    const { status } = await supabase.from("meals").delete().eq("id", id);
+    isProcessing.value = false;
+    wasSuccessful.value = status < 300;
+  };
 
   // -> table: issues
   const issues = [
@@ -150,6 +158,7 @@ export const useSupabase = () => {
     addMeal,
     getMealsByUserAndDay,
     mealsByUserAndDay,
+    deleteMealById,
     issues,
     getIssuesByUserAndDay,
     issuesByUserAndDay,

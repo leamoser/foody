@@ -23,6 +23,7 @@
         <img
           :src="entry.type === 'issue' ? CrossIconLightUrl : CrossIconDarkUrl"
           alt="Icon Löschen"
+          @click="deleteEntry(entry.type, entry.id)"
         />
       </div>
     </div>
@@ -36,7 +37,7 @@ import EditIconDarkUrl from "@/assets/icons/edit.svg";
 import EditIconLightUrl from "@/assets/icons/edit_light.svg";
 import CrossIconDarkUrl from "@/assets/icons/cross_dark.svg";
 import CrossIconLightUrl from "@/assets/icons/cross.svg";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, ref } from "vue";
 import { create, format } from "datenow-ts";
 import { useSupabase } from "@/composables/useSupabase";
@@ -46,8 +47,11 @@ const {
   mealsByUserAndDay,
   getIssuesByUserAndDay,
   issuesByUserAndDay,
+  deleteMealById,
+  wasSuccessful,
 } = useSupabase();
 const route = useRoute();
+const router = useRouter();
 
 const activeDate = ref<Date | false>(false);
 const activeDateTitle = computed<string>(() => {
@@ -57,10 +61,12 @@ const activeDateTitle = computed<string>(() => {
   return `${day}<br>${date}`;
 });
 
+type EntryType = "meal" | "issue";
 interface ListEntry {
+  id: string;
   time: string;
   title: string;
-  type: "meal" | "issue";
+  type: EntryType;
 }
 const entriesSortedByTime = computed<ListEntry[]>(() => {
   if (!issuesByUserAndDay && !mealsByUserAndDay) return [];
@@ -69,6 +75,7 @@ const entriesSortedByTime = computed<ListEntry[]>(() => {
     issuesByUserAndDay.value.forEach((issue) => {
       const date = create.dateByDatestring(issue?.created_at || "2022");
       combinedEntries.push({
+        id: issue?.id || "",
         time: format.toTime("H:i", date),
         title: "Beschwerden",
         type: "issue",
@@ -79,6 +86,7 @@ const entriesSortedByTime = computed<ListEntry[]>(() => {
     mealsByUserAndDay.value.forEach((meal) => {
       const date = create.dateByDatestring(meal?.created_at || "2022");
       combinedEntries.push({
+        id: meal?.id || "",
         time: format.toTime("H:i", date),
         title: meal?.title || "Mahlzeit",
         type: "meal",
@@ -89,6 +97,16 @@ const entriesSortedByTime = computed<ListEntry[]>(() => {
     return a.time.localeCompare(b.time);
   });
 });
+const deleteEntry = async (type: EntryType, id: string) => {
+  if (type === "meal") {
+    await deleteMealById(id);
+    if (wasSuccessful.value && activeDate.value) {
+      await getMealsByUserAndDay(activeDate.value);
+    }
+  }
+};
+
+// todo: implement delete issues
 
 onMounted(() => {
   activeDate.value = create.dateByDatestring(route.params.day.toString());
