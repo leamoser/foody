@@ -93,7 +93,7 @@ export const useSupabase = () => {
     if (meals?.length) {
       mealsByUserAndDay.value = meals;
     } else {
-      mealsByUserAndDay.value = false;
+      mealsByUserAndDay.value = [];
     }
   };
 
@@ -136,7 +136,7 @@ export const useSupabase = () => {
     if (issues?.length) {
       issuesByUserAndDay.value = issues;
     } else {
-      issuesByUserAndDay.value = false;
+      issuesByUserAndDay.value = [];
     }
   };
 
