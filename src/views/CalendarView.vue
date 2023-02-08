@@ -17,9 +17,10 @@
       <p
         v-for="(dayObject, index) in calendarizedMonth"
         :key="`weekday-${dayObject.day}-${index}-${activeMonth}`"
-        v-text="dayObject.day"
+        v-text="dayObject.paddedDay"
         class="typo-mono"
         :class="{ filler: dayObject.filler, today: dayIsToday(dayObject) }"
+        @click="goToDay(dayObject.day)"
       />
     </div>
     <div class="ct-legend">
@@ -47,8 +48,10 @@ import PrevIconUrl from "@/assets/icons/prev.svg";
 import ViewTitle from "@/components/layout/ViewTitle.vue";
 import { computed, ref } from "vue";
 import { format, create, modify, get, helper } from "datenow-ts";
-import type { CalendarizedDate } from "datenow-ts/lib/types";
+import type { CalendarizedDate, Day } from "datenow-ts/lib/types";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const weekdays = helper.weekdaysShort("de");
 const activeDate = ref<Date>(create.dateNow());
 const activeMonth = computed<string>(() => {
@@ -77,6 +80,11 @@ const nextMonth = (): void => {
 const prevMonth = (): void => {
   const setToFirst = modify.day.changeTo(activeDate.value, 1);
   activeDate.value = modify.month.subtract(setToFirst, 1);
+};
+const goToDay = (day: Day): void => {
+  const clickedDay = modify.day.changeTo(activeDate.value, day);
+  const dateFormatted = format.toDate("Y-m-d", clickedDay, "de");
+  router.push(`calendar/${dateFormatted}`);
 };
 const legendItems = [
   {
