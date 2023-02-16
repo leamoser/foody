@@ -151,18 +151,29 @@ export const useSupabase = () => {
       issuesByUserAndDay.value = [];
     }
   };
+  const deleteIssueById = async (id: string) => {
+    isProcessing.value = true;
+    const { status } = await supabase.from("issues").delete().eq("id", id);
+    isProcessing.value = false;
+    wasSuccessful.value = status < 300;
+  };
 
   // -> returns
   return {
+    // -> people
     addPeople,
+    // -> meals
     addMeal,
     getMealsByUserAndDay,
     mealsByUserAndDay,
     deleteMealById,
+    // -> issues
     issues,
     getIssuesByUserAndDay,
     issuesByUserAndDay,
     addIssue,
+    deleteIssueById,
+    // -> misc
     isProcessing,
     wasSuccessful,
   };

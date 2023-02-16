@@ -49,6 +49,7 @@ const {
   issuesByUserAndDay,
   deleteMealById,
   wasSuccessful,
+  deleteIssueById,
 } = useSupabase();
 const route = useRoute();
 const router = useRouter();
@@ -104,9 +105,13 @@ const deleteEntry = async (type: EntryType, id: string) => {
       await getMealsByUserAndDay(activeDate.value);
     }
   }
+  if (type === "issue") {
+    await deleteIssueById(id);
+    if (wasSuccessful.value && activeDate.value) {
+      await getIssuesByUserAndDay(activeDate.value);
+    }
+  }
 };
-
-// todo: implement delete issues
 
 onMounted(() => {
   activeDate.value = create.dateByDatestring(route.params.day.toString());
