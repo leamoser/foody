@@ -19,7 +19,6 @@ import ProfileView from "@/views/ProfileView.vue";
 // -> ts
 export {};
 import "vue-router";
-import { useUser } from "@/composables/useUser";
 declare module "vue-router" {
   interface RouteMeta {
     needsAuth: boolean;
