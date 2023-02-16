@@ -28,6 +28,10 @@
       </div>
     </div>
   </div>
+  <div class="ct-buttons">
+    <action-button link="meal">Mahlzeit eintragen</action-button>
+    <action-button link="issues">Beschwerden eintragen</action-button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -41,6 +45,7 @@ import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, ref } from "vue";
 import { create, format } from "datenow-ts";
 import { useSupabase } from "@/composables/useSupabase";
+import ActionButton from "@/components/ActionButton.vue";
 
 const {
   getMealsByUserAndDay,
@@ -152,5 +157,12 @@ onMounted(() => {
       border-left: 1px solid $color_accentdark;
     }
   }
+}
+.ct-buttons {
+  position: fixed;
+  bottom: px(65);
+  left: 0;
+  width: 100vw;
+  @include flex(column, center, center);
 }
 </style>
