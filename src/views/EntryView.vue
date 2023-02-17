@@ -1,5 +1,8 @@
 <template>
   <section class="ct-entry-view">
+    <!-- mode -->
+    <nutrition-mode />
+    <!-- homeinfos -->
     <div class="ct-entrylogo">
       <img :src="MealIcon" alt="Icon Mahlzeit" />
       <div class="ct-logo">
@@ -7,6 +10,7 @@
       </div>
     </div>
     <h2 class="typo-accent">Mahlzeitentracker für eine gesunde Verdauung</h2>
+    <!-- buttons -->
     <div class="ct-buttons">
       <action-button link="sign-up">neu hier</action-button>
       <action-button link="sign-in">einloggen</action-button>
@@ -17,6 +21,7 @@
 <script lang="ts" setup>
 import ActionButton from "@/components/elements/ActionButton.vue";
 import MealIcon from "@/assets/icons/meal_extended.svg";
+import NutritionMode from "@/components/elements/NutritionMode.vue";
 const appname = import.meta.env.VITE_BASE_APPNAME;
 </script>
 
