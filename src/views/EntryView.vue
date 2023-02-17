@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import ActionButton from "@/components/ActionButton.vue";
+import ActionButton from "@/components/elements/ActionButton.vue";
 import MealIcon from "@/assets/icons/meal_extended.svg";
 const appname = import.meta.env.VITE_BASE_APPNAME;
 </script>

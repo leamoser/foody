@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useAuth } from "@/composables/useAuth";
-import ActionButton from "@/components/ActionButton.vue";
+import ActionButton from "@/components/elements/ActionButton.vue";
 import { useFormValidation } from "@/composables/useFormValidation";
 const email = ref<string>("");
 const { matchesRegex } = useFormValidation();

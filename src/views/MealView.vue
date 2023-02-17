@@ -59,7 +59,7 @@ import crossIconUrl from "@/assets/icons/cross.svg";
 import checkIconUrl from "@/assets/icons/check.svg";
 import ViewTitle from "@/components/layout/ViewTitle.vue";
 import { computed, onMounted, ref, watch } from "vue";
-import ActionButton from "@/components/ActionButton.vue";
+import ActionButton from "@/components/elements/ActionButton.vue";
 import { create, format } from "datenow-ts";
 import { useUser } from "@/composables/useUser";
 import { useSupabase } from "@/composables/useSupabase";

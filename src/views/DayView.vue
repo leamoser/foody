@@ -52,7 +52,7 @@ import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, ref } from "vue";
 import { create, format } from "datenow-ts";
 import { useSupabase } from "@/composables/useSupabase";
-import ActionButton from "@/components/ActionButton.vue";
+import ActionButton from "@/components/elements/ActionButton.vue";
 
 const {
   getMealsByUserAndDay,

@@ -50,7 +50,7 @@ import { computed, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { create } from "datenow-ts";
 import { supabase } from "@/services/supabase";
-import ActionButton from "@/components/ActionButton.vue";
+import ActionButton from "@/components/elements/ActionButton.vue";
 import { useSupabase } from "@/composables/useSupabase";
 const router = useRouter();
 const { email, uid } = useUser();

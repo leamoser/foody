@@ -40,7 +40,7 @@ import { computed, onMounted, ref } from "vue";
 import { useSupabase } from "@/composables/useSupabase";
 import { useUser } from "@/composables/useUser";
 import { create, format } from "datenow-ts";
-import ActionButton from "@/components/ActionButton.vue";
+import ActionButton from "@/components/elements/ActionButton.vue";
 import { useRoute, useRouter } from "vue-router";
 
 const { uid } = useUser();
