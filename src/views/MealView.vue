@@ -63,10 +63,11 @@ import ActionButton from "@/components/ActionButton.vue";
 import { create, format } from "datenow-ts";
 import { useUser } from "@/composables/useUser";
 import { useSupabase } from "@/composables/useSupabase";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 const { uid } = useUser();
 const { addMeal, isProcessing, wasSuccessful } = useSupabase();
 const router = useRouter();
+const route = useRoute();
 const title = ref<string>("");
 const day = ref<string>("");
 const time = ref<string>("");
@@ -81,7 +82,7 @@ const addItem = (): void => {
   fooditem.value = "";
 };
 const removeItem = (item: string): void => {
-  if (isProcessing) return;
+  if (isProcessing.value) return;
   const indexOfItem = food.value.indexOf(item);
   food.value.splice(indexOfItem, 1);
 };
@@ -98,7 +99,9 @@ const insertFood = async (): Promise<void> => {
   }
 };
 onMounted(() => {
-  const date = create.dateNow();
+  const date = route.query.day
+    ? create.dateByDatestring(route.query.day.toString() + "T12:00:00")
+    : create.dateNow();
   day.value = format.toDate("Y-m-d", date);
   time.value = format.toTime("H:i", date);
 });

@@ -29,8 +29,12 @@
     </div>
   </div>
   <div class="ct-buttons">
-    <action-button link="meal">Mahlzeit eintragen</action-button>
-    <action-button link="issues">Beschwerden eintragen</action-button>
+    <action-button link="meal" :query="activeDateQuery">
+      Mahlzeit eintragen
+    </action-button>
+    <action-button link="issues" :query="activeDateQuery">
+      Beschwerden eintragen
+    </action-button>
   </div>
 </template>
 
@@ -65,6 +69,21 @@ const activeDateTitle = computed<string>(() => {
   const day = format.toDate("l", activeDate.value, "de");
   const date = format.toDate("d F Y", activeDate.value, "de");
   return `${day}<br>${date}`;
+});
+const activeDateQuery = computed<{ [key: string]: string } | {}>(() => {
+  if (!activeDate.value) return {};
+  if (activeDateIsToday.value) return {};
+  const date = format.toDate("Y-m-d", activeDate.value, "de") || false;
+  return date ? { day: date } : {};
+});
+const activeDateIsToday = computed<boolean>(() => {
+  if (!activeDate.value) return false;
+  const today = create.dateNow();
+  return (
+    today.getFullYear() === activeDate.value.getFullYear() &&
+    today.getMonth() === activeDate.value.getMonth() &&
+    today.getDate() === activeDate.value.getDate()
+  );
 });
 
 type EntryType = "meal" | "issue";

@@ -9,14 +9,21 @@ import { useRouter } from "vue-router";
 
 const props = defineProps({
   link: { required: false, type: String, default: "" },
+  query: {
+    required: false,
+    type: Object as () => { [key: string]: string },
+    default: () => {},
+  },
   disabled: { required: false, type: Boolean, default: false },
 });
 const router = useRouter();
 const navigateTo = (): void => {
-  if (!props.link || props.disabled) {
-    return;
-  }
-  router.push({ name: props.link });
+  if (!props.link || props.disabled) return;
+  const route =
+    JSON.stringify(props.query) === "{}"
+      ? { name: props.link }
+      : { name: props.link, query: props.query };
+  router.push(route);
 };
 </script>
 

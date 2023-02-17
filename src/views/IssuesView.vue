@@ -41,19 +41,18 @@ import { useSupabase } from "@/composables/useSupabase";
 import { useUser } from "@/composables/useUser";
 import { create, format } from "datenow-ts";
 import ActionButton from "@/components/ActionButton.vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const { uid } = useUser();
 const { isProcessing, wasSuccessful, addIssue, issues } = useSupabase();
 const router = useRouter();
+const route = useRoute();
 const day = ref<string>("");
 const time = ref<string>("");
 const activeIssues = ref<string[]>([]);
-
 const formValid = computed<boolean>(() => {
   return !!day.value && !!time.value && !!activeIssues.value.length;
 });
-
 const toggleIssue = (issue: string): void => {
   if (activeIssues.value.includes(issue)) {
     removeActiveIssue(issue);
@@ -61,7 +60,6 @@ const toggleIssue = (issue: string): void => {
     addActiveIssue(issue);
   }
 };
-
 const addActiveIssue = (issue: string): void => {
   activeIssues.value.push(issue);
 };
@@ -70,7 +68,6 @@ const removeActiveIssue = (issue: string): void => {
   if (index < 0) return;
   activeIssues.value.splice(index, 1);
 };
-
 const insertIssue = async (): Promise<void> => {
   if (!uid.value) return;
   await addIssue({
@@ -84,7 +81,9 @@ const insertIssue = async (): Promise<void> => {
 };
 
 onMounted(() => {
-  const date = create.dateNow();
+  const date = route.query.day
+    ? create.dateByDatestring(route.query.day.toString() + "T12:00:00")
+    : create.dateNow();
   day.value = format.toDate("Y-m-d", date);
   time.value = format.toTime("H:i", date);
 });
