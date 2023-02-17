@@ -4,7 +4,7 @@
     <nutrition-mode />
     <!-- homeinfos -->
     <div class="ct-entrylogo">
-      <img :src="MealIcon" alt="Icon Mahlzeit" />
+      <icon-meal :nutrition-type="nutritionMode || 'meat'" />
       <div class="ct-logo">
         <p>{{ appname }}</p>
       </div>
@@ -22,7 +22,12 @@
 import ActionButton from "@/components/elements/ActionButton.vue";
 import MealIcon from "@/assets/icons/meal_extended.svg";
 import NutritionMode from "@/components/elements/NutritionMode.vue";
+import IconMeal from "@/components/icons/IconMeal.vue";
+import { useLocalStorage } from "@vueuse/core";
+import type { NutritionModeStorageKey } from "../../types";
 const appname = import.meta.env.VITE_BASE_APPNAME;
+const storageKey: NutritionModeStorageKey = "nutrition-mode";
+const nutritionMode = useLocalStorage(storageKey, "");
 </script>
 
 <style lang="scss" scoped>
@@ -34,9 +39,8 @@ const appname = import.meta.env.VITE_BASE_APPNAME;
 }
 .ct-entrylogo {
   @include flex(column, center, center, 0);
-  img {
-    width: px(100);
-    margin-bottom: negative(px(15));
+  :deep(svg) {
+    margin-bottom: negative(px(13));
     z-index: 2;
   }
 }
