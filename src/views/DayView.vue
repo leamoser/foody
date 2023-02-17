@@ -1,6 +1,6 @@
 <template>
   <view-title :title="activeDateTitle" :icon="DayIconUrl" />
-  <div class="ct-entries">
+  <div class="ct-entries" v-if="entriesSortedByTime.length">
     <p class="typo-info">Vorhandene Einträge</p>
     <div
       v-for="(entry, index) in entriesSortedByTime"
@@ -27,6 +27,9 @@
         />
       </div>
     </div>
+  </div>
+  <div class="ct-noentries" v-else>
+    <p class="typo-info">Noch keine Einträge vorhanden</p>
   </div>
   <div class="ct-buttons">
     <action-button link="meal" :query="activeDateQuery">
@@ -145,7 +148,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.ct-entries {
+.ct-entries,
+.ct-noentries {
   padding-top: $gap_inner-big;
 }
 .ct-entry {
