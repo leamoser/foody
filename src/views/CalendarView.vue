@@ -3,9 +3,15 @@
   <div class="ct-calendar">
     <!-- month indicator -->
     <div class="ct-month">
-      <img :src="PrevIconUrl" alt="Icon Previous" @click="prevMonth" />
+      <img :src="PrevIconUrl" alt="Icon Previous" @click="goToPrevMonth" />
       <p>{{ activeMonthString }}</p>
-      <img :src="NextIconUrl" alt="Icon Next" @click="nextMonth" />
+      <img :src="NextIconUrl" alt="Icon Next" @click="goToNextMonth" />
+    </div>
+    <!-- backlink -->
+    <div class="ct-back" v-if="!activeMonthIsCurrentMonth">
+      <p @click="goTocurrentMonth" class="typo-info">
+        zurück zum {{ currentMonthString }}
+      </p>
     </div>
     <!-- weekdays -->
     <div class="ct-days">
@@ -66,6 +72,10 @@ const activeMonthNumber = computed<Month>(() => {
 const activeYear = computed<Year>(() => {
   return get.year(activeDate.value) || 2020;
 });
+const activeMonthIsCurrentMonth = computed<boolean>(() => {
+  return compare.isSameExactMonth(activeDate.value);
+});
+const currentMonthString = format.toDate("F Y", create.dateNow(), "de");
 const calendarizedMonth = computed<CalendarizedDate[]>(() => {
   return get.calendarizedMonth(activeDate.value, "de");
 });
@@ -77,14 +87,18 @@ const {
 } = useSupabase();
 
 // -> navigation
-const nextMonth = (): void => {
+const goToNextMonth = (): void => {
   const setToFirst = modify.day.changeTo(activeDate.value, 1);
   activeDate.value = modify.month.add(setToFirst, 1);
   loadMealsAndIssuesPerMonth();
 };
-const prevMonth = (): void => {
+const goToPrevMonth = (): void => {
   const setToFirst = modify.day.changeTo(activeDate.value, 1);
   activeDate.value = modify.month.subtract(setToFirst, 1);
+  loadMealsAndIssuesPerMonth();
+};
+const goTocurrentMonth = (): void => {
+  activeDate.value = create.dateNow();
   loadMealsAndIssuesPerMonth();
 };
 const goToDay = (day: Day): void => {
@@ -134,11 +148,15 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.ct-calendar {
-  margin-top: px(30);
-}
 .ct-month {
   @include flex(row, space-between, center);
+}
+.ct-back {
+  margin: px(5) 0;
+  @include flex();
+}
+.ct-calendar {
+  margin-top: px(30);
 }
 .ct-days {
   @include grid(repeat(7, 1fr), repeat(7, 1fr), $gap_inner-small);
