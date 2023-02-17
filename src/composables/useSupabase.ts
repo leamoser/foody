@@ -2,6 +2,7 @@ import { supabase } from "@/services/supabase";
 import { ref } from "vue";
 import { useUser } from "@/composables/useUser";
 import { modify, format, create } from "datenow-ts";
+import type { Month, Year } from "datenow-ts/lib/types";
 
 // -> types
 export interface peopleTable {
@@ -82,6 +83,7 @@ export const useSupabase = () => {
     wasSuccessful.value = status === 201;
   };
   const mealsByUserAndDay = ref<mealsTable[] | false>(false);
+  const mealsByUserAndMonth = ref<mealsTable[] | false>(false);
   const getMealsByUserAndDay = async (date: Date): Promise<void> => {
     isProcessing.value = true;
     const dayStart = format.toISO(dateWithResettedTime(date));
@@ -91,7 +93,8 @@ export const useSupabase = () => {
       .select("*")
       .eq("uid", uid.value)
       .gte("created_at", dayStart)
-      .lte("created_at", dayEnd);
+      .lte("created_at", dayEnd)
+      .order("created_at", { ascending: true });
     isProcessing.value = false;
     if (meals) {
       wasSuccessful.value = true;
@@ -100,6 +103,32 @@ export const useSupabase = () => {
       mealsByUserAndDay.value = meals;
     } else {
       mealsByUserAndDay.value = [];
+    }
+  };
+  const getMealsByUserAndMonth = async (
+    month: Month,
+    year: Year
+  ): Promise<void> => {
+    isProcessing.value = true;
+    const dayStart = create.dateByParams({ year, month, day: 1 });
+    const dayStartIso = format.toISO(dayStart);
+    const dayEnd = modify.day.subtract(modify.month.add(dayStart, 1), 1);
+    const dayEndIso = format.toISO(dayEnd);
+    const { data: meals } = await supabase
+      .from("meals")
+      .select("*")
+      .eq("uid", uid.value)
+      .gte("created_at", dayStartIso)
+      .lte("created_at", dayEndIso)
+      .order("created_at", { ascending: true });
+    isProcessing.value = false;
+    if (meals) {
+      wasSuccessful.value = true;
+    }
+    if (meals?.length) {
+      mealsByUserAndMonth.value = meals;
+    } else {
+      mealsByUserAndMonth.value = [];
     }
   };
   const deleteMealById = async (id: string) => {
@@ -131,6 +160,7 @@ export const useSupabase = () => {
     wasSuccessful.value = status === 201;
   };
   const issuesByUserAndDay = ref<issuesTable[] | false>(false);
+  const issuesByUserAndMonth = ref<issuesTable[] | false>(false);
   const getIssuesByUserAndDay = async (date: Date): Promise<void> => {
     isProcessing.value = true;
     const dayStart = format.toISO(dateWithResettedTime(date));
@@ -140,7 +170,8 @@ export const useSupabase = () => {
       .select("*")
       .eq("uid", uid.value)
       .gte("created_at", dayStart)
-      .lte("created_at", dayEnd);
+      .lte("created_at", dayEnd)
+      .order("created_at", { ascending: true });
     isProcessing.value = false;
     if (issues) {
       wasSuccessful.value = true;
@@ -149,6 +180,32 @@ export const useSupabase = () => {
       issuesByUserAndDay.value = issues;
     } else {
       issuesByUserAndDay.value = [];
+    }
+  };
+  const getIssuesByUserAndMonth = async (
+    month: Month,
+    year: Year
+  ): Promise<void> => {
+    isProcessing.value = true;
+    const dayStart = create.dateByParams({ year, month, day: 1 });
+    const dayStartIso = format.toISO(dayStart);
+    const dayEnd = modify.day.subtract(modify.month.add(dayStart, 1), 1);
+    const dayEndIso = format.toISO(dayEnd);
+    const { data: issues } = await supabase
+      .from("issues")
+      .select("*")
+      .eq("uid", uid.value)
+      .gte("created_at", dayStartIso)
+      .lte("created_at", dayEndIso)
+      .order("created_at", { ascending: true });
+    isProcessing.value = false;
+    if (issues) {
+      wasSuccessful.value = true;
+    }
+    if (issues?.length) {
+      issuesByUserAndMonth.value = issues;
+    } else {
+      issuesByUserAndMonth.value = [];
     }
   };
   const deleteIssueById = async (id: string) => {
@@ -166,11 +223,15 @@ export const useSupabase = () => {
     addMeal,
     getMealsByUserAndDay,
     mealsByUserAndDay,
+    getMealsByUserAndMonth,
+    mealsByUserAndMonth,
     deleteMealById,
     // -> issues
     issues,
     getIssuesByUserAndDay,
     issuesByUserAndDay,
+    getIssuesByUserAndMonth,
+    issuesByUserAndMonth,
     addIssue,
     deleteIssueById,
     // -> misc

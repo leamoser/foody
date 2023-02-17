@@ -46,10 +46,11 @@ import CalendarIconUrl from "@/assets/icons/calendar_extended.svg";
 import NextIconUrl from "@/assets/icons/next.svg";
 import PrevIconUrl from "@/assets/icons/prev.svg";
 import ViewTitle from "@/components/layout/ViewTitle.vue";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { format, create, modify, get, helper } from "datenow-ts";
-import type { CalendarizedDate, Day } from "datenow-ts/lib/types";
+import type { CalendarizedDate, Day, Month, Year } from "datenow-ts/lib/types";
 import { useRouter } from "vue-router";
+import { useSupabase } from "@/composables/useSupabase";
 
 const router = useRouter();
 const weekdays = helper.weekdaysShort("de");
@@ -57,9 +58,21 @@ const activeDate = ref<Date>(create.dateNow());
 const activeMonth = computed<string>(() => {
   return format.toDate("F Y", activeDate.value, "de");
 });
+const activeMonthNumber = computed<Month>(() => {
+  return (get.monthObject(activeDate.value).number as Month) || 1;
+});
+const activeYear = computed<Year>(() => {
+  return get.year(activeDate.value) || 2020;
+});
 const calendarizedMonth = computed<CalendarizedDate[]>(() => {
   return get.calendarizedMonth(activeDate.value, "de");
 });
+const {
+  mealsByUserAndMonth,
+  getMealsByUserAndMonth,
+  getIssuesByUserAndMonth,
+  issuesByUserAndMonth,
+} = useSupabase();
 const dayIsToday = (day: CalendarizedDate): boolean => {
   const today = create.dateNow();
   const dayToday = get.day(today);
@@ -76,10 +89,12 @@ const dayIsToday = (day: CalendarizedDate): boolean => {
 const nextMonth = (): void => {
   const setToFirst = modify.day.changeTo(activeDate.value, 1);
   activeDate.value = modify.month.add(setToFirst, 1);
+  loadMealsAndIssuesPerMonth();
 };
 const prevMonth = (): void => {
   const setToFirst = modify.day.changeTo(activeDate.value, 1);
   activeDate.value = modify.month.subtract(setToFirst, 1);
+  loadMealsAndIssuesPerMonth();
 };
 const goToDay = (day: Day): void => {
   const clickedDay = modify.day.changeTo(activeDate.value, day);
@@ -118,6 +133,15 @@ const legendItems = [
     form: "circle",
   },
 ];
+
+const loadMealsAndIssuesPerMonth = (): void => {
+  getMealsByUserAndMonth(activeMonthNumber.value, activeYear.value);
+  getIssuesByUserAndMonth(activeMonthNumber.value, activeYear.value);
+};
+
+onMounted(() => {
+  loadMealsAndIssuesPerMonth();
+});
 </script>
 
 <style lang="scss" scoped>
