@@ -1,7 +1,7 @@
 <template>
   <!-- meat extended -->
   <svg
-    v-if="!isReduced && nutritionType === NutritionTypes.meat"
+    v-if="!isReduced && nutritionType === 1"
     xmlns="http://www.w3.org/2000/svg"
     width="114"
     height="51.529"
@@ -84,7 +84,7 @@
   </svg>
   <!-- meat reduced -->
   <svg
-    v-if="isReduced && nutritionType === NutritionTypes.meat"
+    v-if="isReduced && nutritionType === 1"
     xmlns="http://www.w3.org/2000/svg"
     width="33.079"
     height="15.007"
@@ -155,7 +155,7 @@
   </svg>
   <!-- vegi extended -->
   <svg
-    v-if="!isReduced && nutritionType === NutritionTypes.vegetarian"
+    v-if="!isReduced && nutritionType === 2"
     xmlns="http://www.w3.org/2000/svg"
     width="114"
     height="51.529"
@@ -291,7 +291,7 @@
   </svg>
   <!-- vegi reduced -->
   <svg
-    v-if="isReduced && nutritionType === NutritionTypes.vegetarian"
+    v-if="isReduced && nutritionType === 2"
     xmlns="http://www.w3.org/2000/svg"
     width="38.964"
     height="20.195"
@@ -335,7 +335,7 @@
   </svg>
   <!-- vegan extended -->
   <svg
-    v-if="!isReduced && nutritionType === NutritionTypes.vegan"
+    v-if="!isReduced && nutritionType === 3"
     xmlns="http://www.w3.org/2000/svg"
     width="114"
     height="51.529"
@@ -413,7 +413,7 @@
   </svg>
   <!-- vegan reduced -->
   <svg
-    v-if="isReduced && nutritionType === NutritionTypes.vegan"
+    v-if="isReduced && nutritionType === 3"
     xmlns="http://www.w3.org/2000/svg"
     width="33.081"
     height="32.052"
