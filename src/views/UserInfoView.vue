@@ -52,6 +52,8 @@ import { create } from "datenow-ts";
 import { supabase } from "@/services/supabase";
 import ActionButton from "@/components/elements/ActionButton.vue";
 import { useSupabase } from "@/composables/useSupabase";
+import { NutritionTypes, PeriodTypes } from "../../types";
+
 const router = useRouter();
 const { email, uid } = useUser();
 const name = ref<string>("");
@@ -68,6 +70,8 @@ const addUserInfo = async (): Promise<void> => {
     name: name.value,
     birthday: create.dateByDatestring(birthday.value),
     weight: weight.value,
+    nutrition_type: NutritionTypes.meat,
+    period_type: PeriodTypes.noperiod,
   });
   if (wasSuccessful.value) {
     await router.push({ name: "home" });
@@ -79,9 +83,7 @@ onMounted(async () => {
     .from("people")
     .select("*")
     .eq("uid", uid.value);
-  people?.length
-    ? await router.push({ name: "home" })
-    : await router.push({ name: "user-info" });
+  people?.length ? await router.push({ name: "home" }) : console.log("hi");
 });
 </script>
 

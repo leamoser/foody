@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { useUser } from "@/composables/useUser";
 import { modify, format, create } from "datenow-ts";
 import type { Month, Year } from "datenow-ts/lib/types";
+import type { NutritionTypes, PeriodTypes } from "../../types";
 
 // -> types
 export interface peopleTable {
@@ -11,12 +12,16 @@ export interface peopleTable {
   name?: string | null;
   uid?: string;
   weight?: number | null;
+  nutrition_type?: number;
+  period_type?: number;
 }
 interface peopleTableInsert {
   birthday: Date;
   name: string;
   uid: string;
   weight: number;
+  nutrition_type: NutritionTypes;
+  period_type: PeriodTypes;
 }
 export interface mealsTable {
   id: string | null;

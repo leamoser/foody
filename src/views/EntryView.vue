@@ -1,10 +1,8 @@
 <template>
   <section class="ct-entry-view">
-    <!-- mode -->
-    <nutrition-mode />
     <!-- homeinfos -->
     <div class="ct-entrylogo">
-      <icon-meal :nutrition-type="nutritionMode || 'meat'" />
+      <icon-meal />
       <div class="ct-logo">
         <p>{{ appname }}</p>
       </div>
@@ -20,14 +18,8 @@
 
 <script lang="ts" setup>
 import ActionButton from "@/components/elements/ActionButton.vue";
-import MealIcon from "@/assets/icons/meal_extended.svg";
-import NutritionMode from "@/components/elements/NutritionMode.vue";
 import IconMeal from "@/components/icons/IconMeal.vue";
-import { useLocalStorage } from "@vueuse/core";
-import type { NutritionModeStorageKey } from "../../types";
 const appname = import.meta.env.VITE_BASE_APPNAME;
-const storageKey: NutritionModeStorageKey = "nutrition-mode";
-const nutritionMode = useLocalStorage(storageKey, "");
 </script>
 
 <style lang="scss" scoped>

@@ -1,3 +1,11 @@
 export type IconColorModes = "dark" | "accent";
-export type NutritionTypes = "meat" | "vegi" | "vegan";
-export type NutritionModeStorageKey = "nutrition-mode";
+export enum NutritionTypes {
+  "meat",
+  "vegetarian",
+  "vegan",
+}
+export enum PeriodTypes {
+  "period-noissues",
+  "period-issues",
+  "noperiod",
+}
