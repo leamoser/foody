@@ -1,7 +1,7 @@
 <template>
   <!-- meat extended -->
   <svg
-    v-if="!isReduced && nutritionType === 'meat'"
+    v-if="!isReduced && nutritionType === NutritionTypes.meat"
     xmlns="http://www.w3.org/2000/svg"
     width="114"
     height="51.529"
@@ -84,7 +84,7 @@
   </svg>
   <!-- meat reduced -->
   <svg
-    v-if="isReduced && nutritionType === 'meat'"
+    v-if="isReduced && nutritionType === NutritionTypes.meat"
     xmlns="http://www.w3.org/2000/svg"
     width="33.079"
     height="15.007"
@@ -155,7 +155,7 @@
   </svg>
   <!-- vegi extended -->
   <svg
-    v-if="!isReduced && nutritionType === 'vegi'"
+    v-if="!isReduced && nutritionType === NutritionTypes.vegetarian"
     xmlns="http://www.w3.org/2000/svg"
     width="114"
     height="51.529"
@@ -291,7 +291,7 @@
   </svg>
   <!-- vegi reduced -->
   <svg
-    v-if="isReduced && nutritionType === 'vegi'"
+    v-if="isReduced && nutritionType === NutritionTypes.vegetarian"
     xmlns="http://www.w3.org/2000/svg"
     width="38.964"
     height="20.195"
@@ -335,7 +335,7 @@
   </svg>
   <!-- vegan extended -->
   <svg
-    v-if="!isReduced && nutritionType === 'vegan'"
+    v-if="!isReduced && nutritionType === NutritionTypes.vegan"
     xmlns="http://www.w3.org/2000/svg"
     width="114"
     height="51.529"
@@ -413,7 +413,7 @@
   </svg>
   <!-- vegan reduced -->
   <svg
-    v-if="isReduced && nutritionType === 'vegan'"
+    v-if="isReduced && nutritionType === NutritionTypes.vegan"
     xmlns="http://www.w3.org/2000/svg"
     width="33.081"
     height="32.052"
@@ -482,8 +482,8 @@ const props = defineProps({
   isReduced: { required: false, type: Boolean, default: false },
   nutritionType: {
     required: false,
-    type: String as () => NutritionTypes,
-    default: "meat",
+    type: Number as () => NutritionTypes,
+    default: 0,
   },
 });
 </script>
