@@ -1,5 +1,5 @@
 <template>
-  <view-title title="Beschwerden<br>eintragen" :icon="IssuesIconUrl" />
+  <view-title title="Beschwerden<br>eintragen" icon="issues" />
   <div class="form">
     <div class="form-line form-mono">
       <div class="form-field">
@@ -34,7 +34,6 @@
 </template>
 
 <script setup lang="ts">
-import IssuesIconUrl from "@/assets/icons/issues_extended.svg";
 import ViewTitle from "@/components/layout/ViewTitle.vue";
 import { computed, onMounted, ref } from "vue";
 import { useSupabase } from "@/composables/useSupabase";

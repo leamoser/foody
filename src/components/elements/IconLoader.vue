@@ -3,6 +3,7 @@
   <!-- meat extended -->
   <svg
     v-if="icon === 'meal' && !isReduced && isMeat"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(114, 51.529).width"
     :height="dimensions(114, 51.529).height"
@@ -86,6 +87,7 @@
   <!-- meat reduced -->
   <svg
     v-if="icon === 'meal' && isReduced && isMeat"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(33.079, 15.007).width"
     :height="dimensions(33.079, 15.007).height"
@@ -157,6 +159,7 @@
   <!-- vegi extended -->
   <svg
     v-if="icon === 'meal' && !isReduced && isVegetarian"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(114, 51.529).width"
     :height="dimensions(114, 51.529).height"
@@ -293,6 +296,7 @@
   <!-- vegi reduced -->
   <svg
     v-if="icon === 'meal' && isReduced && isVegetarian"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(38.964, 20.195).width"
     :height="dimensions(38.964, 20.195).height"
@@ -337,6 +341,7 @@
   <!-- vegan extended -->
   <svg
     v-if="icon === 'meal' && !isReduced && isVegan"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(114, 51.529).width"
     :height="dimensions(114, 51.529).height"
@@ -415,6 +420,7 @@
   <!-- vegan reduced -->
   <svg
     v-if="icon === 'meal' && isReduced && isVegan"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(33.081, 32.052).width"
     :height="dimensions(33.081, 32.052).height"
@@ -471,6 +477,7 @@
   <!-- calendar extended -->
   <svg
     v-if="icon === 'calendar' && !isReduced"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(61.196, 67.207).width"
     :height="dimensions(61.196, 67.207).height"
@@ -553,6 +560,7 @@
   <!-- calendar reduced -->
   <svg
     v-if="icon === 'calendar' && isReduced"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(16.716, 19.936).width"
     :height="dimensions(16.716, 19.936).height"
@@ -595,6 +603,7 @@
   <!-- correlations extended -->
   <svg
     v-if="icon === 'correlations' && !isReduced"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(72.865, 54.284).width"
     :height="dimensions(72.865, 54.284).height"
@@ -662,6 +671,7 @@
   <!-- correlations reduced -->
   <svg
     v-if="icon === 'correlations' && isReduced"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(24.24, 19.728).width"
     :height="dimensions(24.24, 19.728).height"
@@ -701,6 +711,7 @@
   <!-- issues extended -->
   <svg
     v-if="icon === 'issues' && !isReduced"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(72.83, 63.773).width"
     :height="dimensions(72.83, 63.773).height"
@@ -789,6 +800,7 @@
   <!-- issues reduced -->
   <svg
     v-if="icon === 'issues' && isReduced"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(35.394, 33.883).width"
     :height="dimensions(35.394, 33.883).height"
@@ -828,6 +840,7 @@
   <!-- DAY -->
   <svg
     v-if="icon === 'day'"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(43.04, 54.138).width"
     :height="dimensions(43.04, 54.138).height"
@@ -878,6 +891,7 @@
   <!-- CHECK -->
   <svg
     v-if="icon === 'check'"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(18.042, 19.008).width"
     :height="dimensions(18.042, 19.008).height"
@@ -896,6 +910,7 @@
   <!-- CROSS -->
   <svg
     v-if="icon === 'cross'"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(12.108, 15.787).width"
     :height="dimensions(12.108, 15.787).height"
@@ -927,6 +942,7 @@
   <!-- EDIT -->
   <svg
     v-if="icon === 'edit'"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(15.767, 20.573).width"
     :height="dimensions(15.767, 20.573).height"
@@ -976,6 +992,7 @@
   <!-- NEXT -->
   <svg
     v-if="icon === 'next'"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(18.582, 13.999).width"
     :height="dimensions(18.582, 13.999).height"
@@ -1004,6 +1021,7 @@
   <!-- PREV -->
   <svg
     v-if="icon === 'prev'"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(18.582, 13.999).width"
     :height="dimensions(18.582, 13.999).height"
@@ -1033,6 +1051,7 @@
   <!-- USER -->
   <svg
     v-if="icon === 'user'"
+    :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
     :width="dimensions(13.853, 20.697).width"
     :height="dimensions(13.853, 20.697).height"
@@ -1071,6 +1090,7 @@ const props = defineProps({
   },
   width: { required: false, type: Number, default: 0 },
   height: { required: false, type: Number, default: 0 },
+  disabled: { required: false, type: Boolean, default: false },
 });
 // -> resize
 const dimensions = (
@@ -1117,3 +1137,10 @@ const iconColor = computed<IconColors>(() =>
   props.color ? IconColors[props.color] : IconColors["dark"]
 );
 </script>
+
+<style lang="scss" scoped>
+svg.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <view-title title="Mahlzeit<br>eintragen" :icon="mealIconUrl" />
+  <view-title title="Mahlzeit<br>eintragen" icon="meal" />
   <div class="form">
     <div class="form-field">
       <label for="title">Titel der Mahlzeit</label>
@@ -25,12 +25,10 @@
           @keydown.enter="addItem"
           :readonly="isProcessing"
         />
-        <div class="add">
-          <img
-            :src="checkIconUrl"
-            alt="Icon Lebensmittel hinzufügen"
-            @click="addItem"
-            :class="{ disabled: !fooditem.length || isProcessing }"
+        <div class="add" @click="addItem">
+          <icon-loader
+            icon="check"
+            :disabled="!fooditem.length || isProcessing"
           />
         </div>
       </div>
@@ -54,7 +52,6 @@
 </template>
 
 <script setup lang="ts">
-import mealIconUrl from "@/assets/icons/meal_extended.svg";
 import crossIconUrl from "@/assets/icons/cross.svg";
 import checkIconUrl from "@/assets/icons/check.svg";
 import ViewTitle from "@/components/layout/ViewTitle.vue";
@@ -64,6 +61,7 @@ import { create, format } from "datenow-ts";
 import { useUser } from "@/composables/useUser";
 import { useSupabase } from "@/composables/useSupabase";
 import { useRoute, useRouter } from "vue-router";
+import IconLoader from "@/components/elements/IconLoader.vue";
 const { uid } = useUser();
 const { addMeal, isProcessing, wasSuccessful } = useSupabase();
 const router = useRouter();
@@ -111,7 +109,7 @@ onMounted(() => {
 .form {
   margin-top: $gap_inner-big;
   .add {
-    img.disabled {
+    :deep(svg.disabled) {
       pointer-events: none;
       opacity: 0.5;
     }

@@ -1,9 +1,8 @@
 <template>
-  <view-title title="Gibt's<br>Korrelationen?" :icon="CorrelationsIconUrl" />
+  <view-title title="Gibt's<br>Korrelationen?" icon="correlations" />
 </template>
 
 <script setup lang="ts">
-import CorrelationsIconUrl from "@/assets/icons/correlations_extended.svg";
 import ViewTitle from "@/components/layout/ViewTitle.vue";
 </script>
 

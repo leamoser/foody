@@ -2,13 +2,12 @@
   <view-title
     v-if="userdata"
     :title="`${userdata.name}'s<br>Profil`"
-    :icon="ProfileIconUrl"
+    icon="user"
   />
   <action-button @click="signOut"> Abmelden </action-button>
 </template>
 
 <script setup lang="ts">
-import ProfileIconUrl from "@/assets/icons/user.svg";
 import ViewTitle from "@/components/layout/ViewTitle.vue";
 import { useUser } from "@/composables/useUser";
 import { useAuth } from "@/composables/useAuth";

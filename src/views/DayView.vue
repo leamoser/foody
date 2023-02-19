@@ -1,5 +1,5 @@
 <template>
-  <view-title :title="activeDateTitle" :icon="DayIconUrl" />
+  <view-title :title="activeDateTitle" icon="day" />
   <div class="ct-entries" v-if="entriesSortedByTime.length">
     <p class="typo-info">Vorhandene Einträge</p>
     <div
@@ -42,7 +42,6 @@
 </template>
 
 <script setup lang="ts">
-import DayIconUrl from "@/assets/icons/day_extended.svg";
 import ViewTitle from "@/components/layout/ViewTitle.vue";
 import EditIconDarkUrl from "@/assets/icons/edit.svg";
 import EditIconLightUrl from "@/assets/icons/edit_light.svg";

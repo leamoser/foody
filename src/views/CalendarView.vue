@@ -1,5 +1,5 @@
 <template>
-  <view-title title="Dein<br>Kalender" :icon="CalendarIconUrl" />
+  <view-title title="Dein<br>Kalender" icon="calendar" />
   <div class="ct-calendar">
     <!-- month indicator -->
     <div class="ct-month">
@@ -43,7 +43,6 @@
 </template>
 
 <script setup lang="ts">
-import CalendarIconUrl from "@/assets/icons/calendar_extended.svg";
 import NextIconUrl from "@/assets/icons/next.svg";
 import PrevIconUrl from "@/assets/icons/prev.svg";
 import ViewTitle from "@/components/layout/ViewTitle.vue";
