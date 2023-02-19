@@ -1,3 +1,10 @@
+// -> icons
+export enum IconColors {
+  "dark" = "#0062FF",
+  "accentdark" = "#FF6C00",
+  "light" = "#ffffff",
+}
+// -> data
 export enum NutritionTypes {
   "meat" = 1,
   "vegetarian",

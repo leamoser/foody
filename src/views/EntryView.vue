@@ -2,7 +2,7 @@
   <section class="ct-entry-view">
     <!-- homeinfos -->
     <div class="ct-entrylogo">
-      <icon-meal />
+      <icon-loader icon="meal" />
       <div class="ct-logo">
         <p>{{ appname }}</p>
       </div>
@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import ActionButton from "@/components/elements/ActionButton.vue";
-import IconMeal from "@/components/icons/IconMeal.vue";
+import IconLoader from "@/components/elements/IconLoader.vue";
 const appname = import.meta.env.VITE_BASE_APPNAME;
 </script>
 
