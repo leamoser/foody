@@ -34,6 +34,28 @@
         /><br />
       </div>
     </div>
+    <div class="form-field">
+      <label for="nutrition">Deine Ernährungsweise</label>
+      <select name="nutrition" id="nutrition" v-model="nutrition">
+        <option disabled :value="false">Bitte wähle aus...</option>
+        <option :value="NutritionTypes.meat">Alles</option>
+        <option :value="NutritionTypes.vegetarian">Vegetarisch</option>
+        <option :value="NutritionTypes.vegan">Vegan</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="nutrition">Deine Periode</label>
+      <select name="nutrition" id="nutrition" v-model="period">
+        <option disabled :value="false">Bitte wähle aus...</option>
+        <option :value="PeriodTypes.noperiod">Ich habe keine Periode</option>
+        <option :value="PeriodTypes['period-noissues']">
+          Ich habe keine Verdauungsprobleme aufgrund meiner Periode
+        </option>
+        <option :value="PeriodTypes['period-issues']">
+          Ich habe Verdauungsprobleme aufgrund meiner Periode
+        </option>
+      </select>
+    </div>
   </div>
   <p class="typo-text">
     Wir wissen nun alles das über dich, was wichtig ist um dein Essverhalten zu
@@ -53,15 +75,26 @@ import { supabase } from "@/services/supabase";
 import ActionButton from "@/components/elements/ActionButton.vue";
 import { useSupabase } from "@/composables/useSupabase";
 import { NutritionTypes, PeriodTypes } from "../../types";
-
+// -> misc
 const router = useRouter();
 const { email, uid } = useUser();
+// -> form fields
 const name = ref<string>("");
 const birthday = ref<string>("");
 const weight = ref<number>(0);
+const nutrition = ref<NutritionTypes | false>(false);
+const period = ref<PeriodTypes | false>(false);
+// -> validation
 const formValid = computed<boolean>(
-  () => !!name.value && !!birthday.value && !!weight.value && !!uid.value
+  () =>
+    !!name.value &&
+    !!birthday.value &&
+    !!weight.value &&
+    !!uid.value &&
+    !!nutrition.value &&
+    !!period.value
 );
+// -> adding data
 const { addPeople, isProcessing, wasSuccessful } = useSupabase();
 const addUserInfo = async (): Promise<void> => {
   if (!uid.value) return;
@@ -70,20 +103,21 @@ const addUserInfo = async (): Promise<void> => {
     name: name.value,
     birthday: create.dateByDatestring(birthday.value),
     weight: weight.value,
-    nutrition_type: NutritionTypes.meat,
-    period_type: PeriodTypes.noperiod,
+    nutrition_type: nutrition.value || NutritionTypes.meat,
+    period_type: period.value || PeriodTypes.noperiod,
   });
   if (wasSuccessful.value) {
     await router.push({ name: "home" });
   }
 };
-
 onMounted(async () => {
   let { data: people } = await supabase
     .from("people")
     .select("*")
     .eq("uid", uid.value);
-  people?.length ? await router.push({ name: "home" }) : console.log("hi");
+  people?.length
+    ? await router.push({ name: "home" })
+    : await router.push({ name: "user-info" });
 });
 </script>
 

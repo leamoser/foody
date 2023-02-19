@@ -12,10 +12,11 @@ main {
 }
 .ct-content-auth {
   margin-top: $gap_top;
+  padding-bottom: $gap_top;
   position: absolute;
   top: calc($gap_around + $gap_top);
   left: $gap_around;
-  height: calc((100vh - multiply($gap_top, 2)) - multiply($gap_around, 3));
+  min-height: calc((100vh - multiply($gap_top, 2)) - multiply($gap_around, 3));
   width: calc(100vw - multiply($gap_around, 2));
   @include flex(column, center, center, $gap_inner-big);
 }
@@ -77,7 +78,7 @@ p, .typo-text {
     display: block;
     margin-bottom: px(6);
   }
-  input {
+  input, select {
     padding: px(10);
     width: 100%;
     border: 1px solid $color_dark;

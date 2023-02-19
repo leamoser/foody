@@ -1,11 +1,11 @@
 export type IconColorModes = "dark" | "accent";
 export enum NutritionTypes {
-  "meat",
+  "meat" = 1,
   "vegetarian",
   "vegan",
 }
 export enum PeriodTypes {
+  "noperiod" = 1,
   "period-noissues",
   "period-issues",
-  "noperiod",
 }

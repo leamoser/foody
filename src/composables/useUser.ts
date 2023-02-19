@@ -1,7 +1,6 @@
 import { computed, onMounted, ref } from "vue";
 import type { peopleTable } from "@/composables/useSupabase";
 import { supabase } from "@/services/supabase";
-import { watchArray } from "@vueuse/core";
 export const useUser = () => {
   // -> auth data
   const authdata = localStorage.getItem("sb-lbauizlhaxtupjrudtln-auth-token");
@@ -18,6 +17,7 @@ export const useUser = () => {
   // -> user data
   const userdata = ref<peopleTable | false>(false);
   const getUserdata = async (): Promise<void> => {
+    if (!userLoggedIn.value) return;
     const { data: people } = await supabase
       .from("people")
       .select("*")

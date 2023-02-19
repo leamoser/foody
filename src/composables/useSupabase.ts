@@ -12,8 +12,8 @@ export interface peopleTable {
   name?: string | null;
   uid?: string;
   weight?: number | null;
-  nutrition_type?: number;
-  period_type?: number;
+  nutrition_type?: NutritionTypes;
+  period_type?: PeriodTypes;
 }
 interface peopleTableInsert {
   birthday: Date;
@@ -67,6 +67,8 @@ export const useSupabase = () => {
         name: data.name,
         birthday: data.birthday,
         weight: data.weight,
+        nutrition_type: data.nutrition_type,
+        period_type: data.period_type,
       },
     ]);
     isProcessing.value = false;
