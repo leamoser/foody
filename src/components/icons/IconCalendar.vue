@@ -125,8 +125,8 @@
 </template>
 
 <script setup lang="ts">
-import type { IconColorModes } from "../../../types";
 import { useColor } from "@/composables/useColor";
+import type { IconColorModes } from "@/ts/types";
 const props = defineProps({
   isReduced: { required: false, type: Boolean, defaul: false },
   color: {

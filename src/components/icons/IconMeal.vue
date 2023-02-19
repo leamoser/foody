@@ -469,10 +469,10 @@
 </template>
 
 <script setup lang="ts">
-import { NutritionTypes } from "../../../types";
-import type { IconColorModes } from "../../../types";
 import { useColor } from "@/composables/useColor";
 import { computed } from "vue";
+import type { IconColorModes } from "@/ts/types";
+import { NutritionTypes } from "@/ts/enums";
 
 const { hexByMode } = useColor();
 

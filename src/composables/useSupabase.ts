@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { useUser } from "@/composables/useUser";
 import { modify, format, create } from "datenow-ts";
 import type { Month, Year } from "datenow-ts/lib/types";
-import type { NutritionTypes, PeriodTypes } from "../../types";
+import type { NutritionTypes, PeriodTypes } from "@/ts/enums";
 
 // -> types
 export interface peopleTable {

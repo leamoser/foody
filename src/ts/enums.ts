@@ -1,4 +1,3 @@
-export type IconColorModes = "dark" | "accent";
 export enum NutritionTypes {
   "meat" = 1,
   "vegetarian",

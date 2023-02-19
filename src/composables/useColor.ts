@@ -1,4 +1,4 @@
-import type { IconColorModes } from "../../types";
+import type { IconColorModes } from "@/ts/types";
 
 export const useColor = () => {
   const hexByMode = (title: IconColorModes): string => {

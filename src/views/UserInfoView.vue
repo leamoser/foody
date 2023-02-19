@@ -74,7 +74,7 @@ import { create } from "datenow-ts";
 import { supabase } from "@/services/supabase";
 import ActionButton from "@/components/elements/ActionButton.vue";
 import { useSupabase } from "@/composables/useSupabase";
-import { NutritionTypes, PeriodTypes } from "../../types";
+import { NutritionTypes, PeriodTypes } from "@/ts/enums";
 // -> misc
 const router = useRouter();
 const { email, uid } = useUser();
