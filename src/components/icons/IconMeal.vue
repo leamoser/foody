@@ -1,7 +1,7 @@
 <template>
   <!-- meat extended -->
   <svg
-    v-if="!isReduced && nutritionType === 1"
+    v-if="!isReduced && isMeat"
     xmlns="http://www.w3.org/2000/svg"
     width="114"
     height="51.529"
@@ -84,7 +84,7 @@
   </svg>
   <!-- meat reduced -->
   <svg
-    v-if="isReduced && nutritionType === 1"
+    v-if="isReduced && isMeat"
     xmlns="http://www.w3.org/2000/svg"
     width="33.079"
     height="15.007"
@@ -155,7 +155,7 @@
   </svg>
   <!-- vegi extended -->
   <svg
-    v-if="!isReduced && nutritionType === 2"
+    v-if="!isReduced && isVegetarian"
     xmlns="http://www.w3.org/2000/svg"
     width="114"
     height="51.529"
@@ -291,7 +291,7 @@
   </svg>
   <!-- vegi reduced -->
   <svg
-    v-if="isReduced && nutritionType === 2"
+    v-if="isReduced && isVegetarian"
     xmlns="http://www.w3.org/2000/svg"
     width="38.964"
     height="20.195"
@@ -335,7 +335,7 @@
   </svg>
   <!-- vegan extended -->
   <svg
-    v-if="!isReduced && nutritionType === 3"
+    v-if="!isReduced && isVegan"
     xmlns="http://www.w3.org/2000/svg"
     width="114"
     height="51.529"
@@ -413,7 +413,7 @@
   </svg>
   <!-- vegan reduced -->
   <svg
-    v-if="isReduced && nutritionType === 3"
+    v-if="isReduced && isVegan"
     xmlns="http://www.w3.org/2000/svg"
     width="33.081"
     height="32.052"
@@ -469,8 +469,11 @@
 </template>
 
 <script setup lang="ts">
-import type { IconColorModes, NutritionTypes } from "../../../types";
+import { NutritionTypes } from "../../../types";
+import type { IconColorModes } from "../../../types";
 import { useColor } from "@/composables/useColor";
+import { computed } from "vue";
+
 const { hexByMode } = useColor();
 
 const props = defineProps({
@@ -483,9 +486,18 @@ const props = defineProps({
   nutritionType: {
     required: false,
     type: Number as () => NutritionTypes,
-    default: 0,
+    default: 1,
   },
 });
+const isMeat = computed<boolean>(
+  () => props.nutritionType === NutritionTypes.meat
+);
+const isVegetarian = computed<boolean>(
+  () => props.nutritionType === NutritionTypes.vegetarian
+);
+const isVegan = computed<boolean>(
+  () => props.nutritionType === NutritionTypes.vegan
+);
 </script>
 
 <style lang="scss" scoped></style>
