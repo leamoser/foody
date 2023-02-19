@@ -2,7 +2,7 @@
   <section class="ct-entry-view">
     <!-- homeinfos -->
     <div class="ct-entrylogo">
-      <icon-loader icon="meal" />
+      <icon-loader icon="meal" :width="130" />
       <div class="ct-logo">
         <p>{{ appname }}</p>
       </div>
@@ -32,7 +32,7 @@ const appname = import.meta.env.VITE_BASE_APPNAME;
 .ct-entrylogo {
   @include flex(column, center, center, 0);
   :deep(svg) {
-    margin-bottom: negative(px(13));
+    margin-bottom: negative(px(15));
     z-index: 2;
   }
 }

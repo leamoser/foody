@@ -1,10 +1,11 @@
 <template>
+  <!-- MEAL -->
   <!-- meat extended -->
   <svg
-    v-if="!isReduced && isMeat"
+    v-if="icon === 'meal' && !isReduced && isMeat"
     xmlns="http://www.w3.org/2000/svg"
-    width="114"
-    height="51.529"
+    :width="dimensions(114, 51.529).width"
+    :height="dimensions(114, 51.529).height"
     viewBox="0 0 114 51.529"
   >
     <g id="Gruppe_21" data-name="Gruppe 21" transform="translate(-29 -37)">
@@ -84,10 +85,10 @@
   </svg>
   <!-- meat reduced -->
   <svg
-    v-if="isReduced && isMeat"
+    v-if="icon === 'meal' && isReduced && isMeat"
     xmlns="http://www.w3.org/2000/svg"
-    width="33.079"
-    height="15.007"
+    :width="dimensions(33.079, 15.007).width"
+    :height="dimensions(33.079, 15.007).height"
     viewBox="0 0 33.079 15.007"
   >
     <g
@@ -155,10 +156,10 @@
   </svg>
   <!-- vegi extended -->
   <svg
-    v-if="!isReduced && isVegetarian"
+    v-if="icon === 'meal' && !isReduced && isVegetarian"
     xmlns="http://www.w3.org/2000/svg"
-    width="114"
-    height="51.529"
+    :width="dimensions(114, 51.529).width"
+    :height="dimensions(114, 51.529).height"
     viewBox="0 0 114 51.529"
   >
     <g id="Gruppe_181" data-name="Gruppe 181" transform="translate(-141 -38)">
@@ -291,10 +292,10 @@
   </svg>
   <!-- vegi reduced -->
   <svg
-    v-if="isReduced && isVegetarian"
+    v-if="icon === 'meal' && isReduced && isVegetarian"
     xmlns="http://www.w3.org/2000/svg"
-    width="38.964"
-    height="20.195"
+    :width="dimensions(38.964, 20.195).width"
+    :height="dimensions(38.964, 20.195).height"
     viewBox="0 0 38.964 20.195"
   >
     <g
@@ -335,10 +336,10 @@
   </svg>
   <!-- vegan extended -->
   <svg
-    v-if="!isReduced && isVegan"
+    v-if="icon === 'meal' && !isReduced && isVegan"
     xmlns="http://www.w3.org/2000/svg"
-    width="114"
-    height="51.529"
+    :width="dimensions(114, 51.529).width"
+    :height="dimensions(114, 51.529).height"
     viewBox="0 0 114 51.529"
   >
     <g id="Gruppe_187" data-name="Gruppe 187" transform="translate(-20 -37)">
@@ -413,10 +414,10 @@
   </svg>
   <!-- vegan reduced -->
   <svg
-    v-if="isReduced && isVegan"
+    v-if="icon === 'meal' && isReduced && isVegan"
     xmlns="http://www.w3.org/2000/svg"
-    width="33.081"
-    height="32.052"
+    :width="dimensions(33.081, 32.052).width"
+    :height="dimensions(33.081, 32.052).height"
     viewBox="0 0 33.081 32.052"
   >
     <g
@@ -466,13 +467,136 @@
       />
     </g>
   </svg>
+  <!-- CALENDAR -->
+  <!-- calendar extended -->
+  <svg
+    v-if="icon === 'calendar' && !isReduced"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="dimensions(61.196, 67.207).width"
+    :height="dimensions(61.196, 67.207).height"
+    viewBox="0 0 61.196 67.207"
+  >
+    <g id="Gruppe_143" transform="translate(-240 -130)">
+      <g id="Gruppe_142" transform="translate(240.5 130.5)">
+        <rect
+          id="Rechteck_33"
+          width="37"
+          height="42"
+          transform="translate(0 6)"
+          fill="#fff"
+          :stroke="iconColor"
+          stroke-miterlimit="10"
+          stroke-width="1"
+        />
+        <rect
+          id="Rechteck_34"
+          width="37.489"
+          height="42.033"
+          transform="translate(3.106 12.84) rotate(-7.472)"
+          fill="#fff"
+          :stroke="iconColor"
+          stroke-miterlimit="10"
+          stroke-width="1"
+        />
+        <rect
+          id="Rechteck_35"
+          width="37.489"
+          height="42.033"
+          transform="translate(6.265 20.26) rotate(-11.998)"
+          fill="#fff"
+          :stroke="iconColor"
+          stroke-miterlimit="10"
+          stroke-width="1"
+        />
+        <rect
+          id="Rechteck_36"
+          width="37.489"
+          height="42.033"
+          transform="translate(11.503 26.066) rotate(-17.841)"
+          fill="#fff"
+          :stroke="iconColor"
+          stroke-miterlimit="10"
+          stroke-width="1"
+        />
+        <rect
+          id="Rechteck_37"
+          width="37"
+          height="6"
+          fill="#fff"
+          :stroke="iconColor"
+          stroke-miterlimit="10"
+          stroke-width="1"
+        />
+      </g>
+      <line
+        id="Linie_34"
+        y1="20.728"
+        x2="10.901"
+        transform="translate(272.073 161.463)"
+        fill="none"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <line
+        id="Linie_35"
+        x2="15.506"
+        y2="13.135"
+        transform="translate(269.1 163.693)"
+        fill="none"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+    </g>
+  </svg>
+  <!-- calendar reduced -->
+  <svg
+    v-if="icon === 'calendar' && isReduced"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="dimensions(16.716, 19.936).width"
+    :height="dimensions(16.716, 19.936).height"
+    viewBox="0 0 16.716 19.936"
+  >
+    <g id="Gruppe_115" transform="translate(-641.628 -129.706)">
+      <rect
+        id="Rechteck_22"
+        width="12.649"
+        height="14.108"
+        transform="translate(642.128 132.152)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <rect
+        id="Rechteck_23"
+        width="12.587"
+        height="14.113"
+        transform="translate(642.506 135.244) rotate(-11.998)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <rect
+        id="Rechteck_24"
+        width="12.649"
+        height="1.946"
+        transform="translate(642.128 130.206)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+    </g>
+  </svg>
 </template>
 
 <script setup lang="ts">
 import type { IconNames } from "@/ts/types";
 import { IconColors, NutritionTypes } from "@/ts/enums";
 import { computed } from "vue";
-
 const props = defineProps({
   icon: { required: true, type: String as () => IconNames },
   color: {
@@ -486,7 +610,39 @@ const props = defineProps({
     type: String as () => keyof typeof NutritionTypes,
     default: "meat",
   },
+  width: { required: false, type: Number, default: 0 },
+  height: { required: false, type: Number, default: 0 },
 });
+// -> resize
+const dimensions = (
+  x: number,
+  y: number
+): { width: number | "100%"; height: number | "100%" } => {
+  if (!props.width && !props.height) {
+    return {
+      width: x,
+      height: y,
+    };
+  } else if (props.width && !props.height) {
+    const aspectRatioHeight = (props.width / x) * y;
+    return {
+      width: "100%",
+      height: aspectRatioHeight,
+    };
+  } else if (props.height && !props.width) {
+    const aspectRatioWidth = (props.height / y) * x;
+    return {
+      width: aspectRatioWidth,
+      height: "100%",
+    };
+  } else {
+    return {
+      width: props.width,
+      height: props.height,
+    };
+  }
+};
+
 // -> nutrition types
 const isMeat = computed<boolean>(
   () => NutritionTypes[props.nutritionType] === NutritionTypes.meat
