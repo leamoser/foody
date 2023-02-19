@@ -591,6 +591,465 @@
       />
     </g>
   </svg>
+  <!-- CORRELATIONS -->
+  <!-- correlations extended -->
+  <svg
+    v-if="icon === 'correlations' && !isReduced"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="dimensions(72.865, 54.284).width"
+    :height="dimensions(72.865, 54.284).height"
+    viewBox="0 0 72.865 54.284"
+  >
+    <g id="Gruppe_159" transform="translate(-229.366 -320.272)">
+      <path
+        id="Pfad_34"
+        d="M265.988,334h-18.2a10.165,10.165,0,0,0-4.918,1.268c-3.878,2.142-10.285,6.8-5.835,12.464a9.9,9.9,0,0,0,8.887,3.579c8.063-.886,26.521-2.454,35.857.473,12.158,3.811,14.047,14.819,1.67,15.666a213.856,213.856,0,0,1-25.078,0"
+        transform="translate(-0.852 -1.731)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <path
+        id="Pfad_35"
+        d="M271.551,325.979l8,6.791-8,6.786"
+        transform="translate(-6.371 -0.502)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <path
+        id="Pfad_36"
+        d="M268.859,378.379l-6.308-5.354,6.308-5.349"
+        transform="translate(-4.993 -6.889)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <path
+        id="Pfad_37"
+        d="M299.968,336.89l.553,8.671-6.267-8.671-5.161,1.577,2.038-7.883V322.7l3.676,7.24,7-7.24-3.585,7.883,11.326,3.547Z"
+        transform="translate(-9.059)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <g id="Gruppe_158" transform="translate(229.958 353.57)">
+        <path
+          id="Pfad_38"
+          d="M242.235,363.888s-4.884-6.531-9.931,0-1.484,16.033,6.234,16.033,8.907-2.375,8.907-3.563,3.787-10.094,1-12.172S242.235,363.888,242.235,363.888Z"
+          transform="translate(-229.958 -359.434)"
+          fill="#fff"
+          :stroke="iconColor"
+          stroke-miterlimit="10"
+          stroke-width="1"
+        />
+        <path
+          id="Pfad_39"
+          d="M244.456,363.607s.727-1.187,0-4.453"
+          transform="translate(-232.179 -359.154)"
+          fill="#fff"
+          :stroke="iconColor"
+          stroke-miterlimit="10"
+          stroke-width="1"
+        />
+      </g>
+    </g>
+  </svg>
+  <!-- correlations reduced -->
+  <svg
+    v-if="icon === 'correlations' && isReduced"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="dimensions(24.24, 19.728).width"
+    :height="dimensions(24.24, 19.728).height"
+    viewBox="0 0 24.24 19.728"
+  >
+    <g id="Gruppe_116" transform="translate(-623.003 -325.598)">
+      <path
+        id="Pfad_21"
+        d="M636.077,334h-7.5a4.19,4.19,0,0,0-2.027.523c-1.6.883-4.239,2.8-2.405,5.137a4.081,4.081,0,0,0,3.663,1.475c3.323-.365,10.931-1.011,14.779.195,5.011,1.571,5.79,6.108.688,6.457a88.15,88.15,0,0,1-10.337,0"
+        transform="translate(0 -5.221)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <path
+        id="Pfad_22"
+        d="M659.551,325.979l3.3,2.8-3.3,2.8"
+        transform="translate(-23.456)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <path
+        id="Pfad_23"
+        d="M653.151,372.088l-2.6-2.207,2.6-2.2"
+        transform="translate(-17.597 -27.143)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+    </g>
+  </svg>
+  <!-- ISSUES -->
+  <!-- issues extended -->
+  <svg
+    v-if="icon === 'issues' && !isReduced"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="dimensions(72.83, 63.773).width"
+    :height="dimensions(72.83, 63.773).height"
+    viewBox="0 0 72.83 63.773"
+  >
+    <g id="Gruppe_120" transform="translate(-231.452 -230.384)">
+      <path
+        id="Pfad_24"
+        d="M231.867,230.663s24.98,37.234,4.409,63.184"
+        transform="translate(0)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <path
+        id="Pfad_25"
+        d="M300.563,230.663s-24.979,37.234-4.408,63.184"
+        transform="translate(3.304)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <line
+        id="Linie_25"
+        y1="8.816"
+        x2="13.224"
+        transform="translate(277.418 253.439)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <line
+        id="Linie_26"
+        x2="14.385"
+        y2="2.939"
+        transform="translate(277.418 268.133)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <line
+        id="Linie_27"
+        x2="11.755"
+        y2="5.878"
+        transform="translate(274.48 274.01)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <line
+        id="Linie_28"
+        x1="14.476"
+        y1="9.551"
+        transform="translate(246.561 250.5)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <line
+        id="Linie_29"
+        x1="17.092"
+        y2="5.878"
+        transform="translate(246.645 271.071)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <path
+        id="Pfad_26"
+        d="M258.936,258.622l-1.031-16.163,11.681,16.163,9.62-2.939-3.8,14.694v14.694l-6.852-13.5-13.055,13.5,6.682-14.694-21.112-6.612Z"
+        transform="translate(0.541 0.694)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+    </g>
+  </svg>
+  <!-- issues reduced -->
+  <svg
+    v-if="icon === 'issues' && isReduced"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="dimensions(35.394, 33.883).width"
+    :height="dimensions(35.394, 33.883).height"
+    viewBox="0 0 35.394 33.883"
+  >
+    <g id="Gruppe_114" transform="translate(555.222 -425.561) rotate(120)">
+      <line
+        id="Linie_18"
+        x2="6.427"
+        y2="3.213"
+        transform="translate(660.04 249.115)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <line
+        id="Linie_19"
+        x1="7.914"
+        y1="5.222"
+        transform="translate(644.777 236.262)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <path
+        id="Pfad_19"
+        d="M651.838,241.081l-.563-8.837,6.386,8.837,5.259-1.607-2.077,8.033v8.033l-3.746-7.378-7.137,7.378,3.653-8.033-11.542-3.615Z"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+    </g>
+  </svg>
+  <!-- DAY -->
+  <svg
+    v-if="icon === 'day'"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="dimensions(43.04, 54.138).width"
+    :height="dimensions(43.04, 54.138).height"
+    viewBox="0 0 43.04 54.138"
+  >
+    <g id="Gruppe_145" transform="translate(-238.987 -421.059)">
+      <path
+        id="Pfad_32"
+        d="M279.029,473.441,239.5,467.265l1.235-40.765H281.5Z"
+        transform="translate(0 1.177)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <rect
+        id="Rechteck_45"
+        width="41"
+        height="6"
+        transform="translate(240.5 421.559)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <line
+        id="Linie_36"
+        y1="22.54"
+        x2="11.853"
+        transform="translate(255.302 439.11)"
+        fill="none"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <line
+        id="Linie_37"
+        x2="16.861"
+        y2="14.283"
+        transform="translate(252.069 441.535)"
+        fill="none"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+    </g>
+  </svg>
+  <!-- CHECK -->
+  <svg
+    v-if="icon === 'check'"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="dimensions(18.042, 19.008).width"
+    :height="dimensions(18.042, 19.008).height"
+    viewBox="0 0 18.042 19.008"
+  >
+    <path
+      id="Pfad_31"
+      d="M235.519,678.747l8.856,7.5,8.41-17.992"
+      transform="translate(-235.195 -668.04)"
+      fill="#fff"
+      :stroke="iconColor"
+      stroke-miterlimit="10"
+      stroke-width="1"
+    />
+  </svg>
+  <!-- CROSS -->
+  <svg
+    v-if="icon === 'cross'"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="dimensions(12.108, 15.787).width"
+    :height="dimensions(12.108, 15.787).height"
+    viewBox="0 0 12.108 15.787"
+  >
+    <g id="Gruppe_138" transform="translate(-294.492 -669.767)">
+      <line
+        id="Linie_32"
+        y1="15.322"
+        x2="8.057"
+        transform="translate(297.013 670)"
+        fill="none"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <line
+        id="Linie_33"
+        x2="11.462"
+        y2="9.709"
+        transform="translate(294.815 671.648)"
+        fill="none"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+    </g>
+  </svg>
+  <!-- EDIT -->
+  <svg
+    v-if="icon === 'edit'"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="dimensions(15.767, 20.573).width"
+    :height="dimensions(15.767, 20.573).height"
+    viewBox="0 0 15.767 20.573"
+  >
+    <g id="Gruppe_147" transform="translate(-345.674 -667.506)">
+      <path
+        id="Pfad_33"
+        d="M357.487,668.252l-8.8,12.8-2.219,6.283,5.509-1.587,8.818-14.6Z"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <line
+        id="Linie_42"
+        x1="3.291"
+        y1="4.696"
+        transform="translate(348.688 681.047)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <line
+        id="Linie_43"
+        x1="8.714"
+        y2="13.782"
+        transform="translate(350.333 669.613)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <line
+        id="Linie_44"
+        x2="1.365"
+        y2="1.779"
+        transform="translate(347.323 684.912)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+    </g>
+  </svg>
+  <!-- NEXT -->
+  <svg
+    v-if="icon === 'next'"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="dimensions(18.582, 13.999).width"
+    :height="dimensions(18.582, 13.999).height"
+    viewBox="0 0 18.582 13.999"
+  >
+    <g id="Gruppe_68" transform="translate(18.01 13.77) rotate(180)">
+      <line
+        id="Linie_10"
+        x2="17.382"
+        transform="translate(0.628 7.301)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <path
+        id="Pfad_8"
+        d="M3.757,0,0,7.3l3.757,6.211"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+    </g>
+  </svg>
+  <!-- PREV -->
+  <svg
+    v-if="icon === 'prev'"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="dimensions(18.582, 13.999).width"
+    :height="dimensions(18.582, 13.999).height"
+    viewBox="0 0 18.582 13.999"
+  >
+    <g id="Gruppe_67" transform="translate(0.572 0.229)">
+      <line
+        id="Linie_10"
+        x2="17.382"
+        transform="translate(0.628 7.301)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+      <path
+        id="Pfad_8"
+        d="M85.655,138.5,81.9,145.8l3.757,6.211"
+        transform="translate(-81.898 -138.5)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+    </g>
+  </svg>
+  <!-- USER -->
+  <svg
+    v-if="icon === 'user'"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="dimensions(13.853, 20.697).width"
+    :height="dimensions(13.853, 20.697).height"
+    viewBox="0 0 13.853 20.697"
+  >
+    <g id="Gruppe_119" transform="translate(-306.072 -52.651)">
+      <path
+        id="Pfad_20"
+        d="M654.18,527.912h12.061s.735-8.318-1.824-9.6a14.251,14.251,0,0,1-3.2-1.919s5.758-2.559,3.839-5.118-3.839-3.839-5.758-2.56-2.559,4.479-1.92,5.758-1.92,3.034-3.2,5.037S654.18,527.912,654.18,527.912Z"
+        transform="translate(-346.975 -455.064)"
+        fill="#fff"
+        :stroke="iconColor"
+        stroke-miterlimit="10"
+        stroke-width="1"
+      />
+    </g>
+  </svg>
 </template>
 
 <script setup lang="ts">
@@ -658,5 +1117,3 @@ const iconColor = computed<IconColors>(() =>
   props.color ? IconColors[props.color] : IconColors["dark"]
 );
 </script>
-
-<style lang="scss" scoped></style>
