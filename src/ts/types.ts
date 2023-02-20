@@ -1,5 +1,5 @@
 // todo: delete this type
-export type IconColorModes = "dark" | "accent";
+export type IconColorModes = "dark" | "accent" | "danger";
 // -> icons
 export type IconPagesNames =
   | "meal"

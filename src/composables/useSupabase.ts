@@ -24,8 +24,8 @@ interface peopleTableInsert {
   period_type: PeriodTypes;
 }
 export interface mealsTable {
-  id: string | null;
-  created_at?: string | null;
+  id: string;
+  created_at: string;
   title?: string | null;
   food?: string | null;
   uid?: string | null;
@@ -37,14 +37,23 @@ interface mealsTableInsert {
   uid: string;
 }
 export interface issuesTable {
-  id: string | null;
-  created_at?: string | null;
+  id: string;
+  created_at: string;
   issues?: string | null;
   uid?: string | null;
 }
 interface issuesTableInsert {
   created_at: Date;
   issues: string;
+  uid: string;
+}
+interface periodTable {
+  id: string;
+  created_at: string;
+  uid?: string;
+}
+interface periodTableInsert {
+  created_at: Date;
   uid: string;
 }
 
@@ -241,6 +250,74 @@ export const useSupabase = () => {
     wasSuccessful.value = status < 300;
   };
 
+  // -> table: period
+  const addPeriod = async (data: periodTableInsert) => {
+    isProcessing.value = true;
+    const { status } = await supabase.from("period").insert([
+      {
+        created_at: data.created_at,
+        uid: data.uid,
+      },
+    ]);
+    isProcessing.value = false;
+    wasSuccessful.value = status === 201;
+  };
+  const periodByUserAndDay = ref<periodTable[] | false>(false);
+  const periodByUserAndMonth = ref<periodTable[] | false>(false);
+  const getPeriodByUserAndDay = async (date: Date): Promise<void> => {
+    isProcessing.value = true;
+    const dayStart = format.toISO(dateWithResettedTime(date));
+    const dayEnd = format.toISO(modify.day.add(dateWithResettedTime(date), 1));
+    const { data: period } = await supabase
+      .from("period")
+      .select("*")
+      .eq("uid", uid.value)
+      .gte("created_at", dayStart)
+      .lte("created_at", dayEnd)
+      .order("created_at", { ascending: true });
+    isProcessing.value = false;
+    if (period) {
+      wasSuccessful.value = true;
+    }
+    if (period?.length) {
+      periodByUserAndDay.value = period;
+    } else {
+      periodByUserAndDay.value = [];
+    }
+  };
+  const getPeriodByUserAndMonth = async (
+    month: Month,
+    year: Year
+  ): Promise<void> => {
+    isProcessing.value = true;
+    const dayStart = create.dateByParams({ year, month, day: 1 });
+    const dayStartIso = format.toISO(dayStart);
+    const dayEnd = modify.day.subtract(modify.month.add(dayStart, 1), 1);
+    const dayEndIso = format.toISO(dayEnd);
+    const { data: period } = await supabase
+      .from("period")
+      .select("*")
+      .eq("uid", uid.value)
+      .gte("created_at", dayStartIso)
+      .lte("created_at", dayEndIso)
+      .order("created_at", { ascending: true });
+    isProcessing.value = false;
+    if (period) {
+      wasSuccessful.value = true;
+    }
+    if (period?.length) {
+      periodByUserAndMonth.value = period;
+    } else {
+      periodByUserAndMonth.value = [];
+    }
+  };
+  const deletePeriodById = async (id: string) => {
+    isProcessing.value = true;
+    const { status } = await supabase.from("period").delete().eq("id", id);
+    isProcessing.value = false;
+    wasSuccessful.value = status < 300;
+  };
+
   // -> returns
   return {
     // -> people
@@ -255,13 +332,20 @@ export const useSupabase = () => {
     foodsByUser,
     getFoodsByUser,
     // -> issues
+    addIssue,
     issues,
     getIssuesByUserAndDay,
     issuesByUserAndDay,
     getIssuesByUserAndMonth,
     issuesByUserAndMonth,
-    addIssue,
     deleteIssueById,
+    // -> period
+    addPeriod,
+    getPeriodByUserAndDay,
+    periodByUserAndDay,
+    getPeriodByUserAndMonth,
+    periodByUserAndMonth,
+    deletePeriodById,
     // -> misc
     isProcessing,
     wasSuccessful,

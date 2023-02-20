@@ -3,6 +3,7 @@ export enum IconColors {
   "dark" = "#0062FF",
   "accentdark" = "#FF6C00",
   "light" = "#ffffff",
+  "danger" = "#FF004E",
 }
 // -> data
 export enum NutritionTypes {

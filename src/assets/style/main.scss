@@ -53,6 +53,12 @@ p, .typo-text {
     color: $color_accentdark !important;
   }
 }
+.typo-danger {
+  color: $color_danger !important;
+  *, ::marker{
+    color: $color_danger !important;
+  }
+}
 .typo-light {
   color: $color_light !important;
   *, ::marker{

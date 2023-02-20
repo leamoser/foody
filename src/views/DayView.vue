@@ -15,17 +15,25 @@
         <p>{{ entry.title }}</p>
       </div>
       <div class="ct-icon">
-        <icon-loader
-          icon="edit"
-          :color="entry.type === 'issue' ? 'accentdark' : 'dark'"
-        />
+        <icon-loader icon="edit" :color="entry.color" />
       </div>
       <div class="ct-icon" @click="deleteEntry(entry.type, entry.id)">
-        <icon-loader
-          icon="cross"
-          :color="entry.type === 'issue' ? 'accentdark' : 'dark'"
-        />
+        <icon-loader icon="cross" :color="entry.color" />
       </div>
+    </div>
+  </div>
+  <!-- period entry -->
+  <div
+    class="ct-period typo-danger"
+    v-if="needsPeriodTracking && periodByUserAndDay?.length"
+  >
+    <div
+      class="ct-periodentry"
+      v-for="period in periodByUserAndDay"
+      :key="`period-${period.uid}`"
+    >
+      <p>Periode eingetragen</p>
+      <p class="typo-info" @click="deleteEntry('period', period.id)">löschen</p>
     </div>
   </div>
   <!-- fallback -->
@@ -40,6 +48,12 @@
     <action-button link="issues" :query="activeDateQuery">
       Beschwerden eintragen
     </action-button>
+    <action-button
+      @click="insertPeriod"
+      v-if="needsPeriodTracking && !periodByUserAndDay?.length"
+    >
+      Periode eintragen
+    </action-button>
   </div>
 </template>
 
@@ -51,6 +65,8 @@ import { computed, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { create, format } from "datenow-ts";
 import { useSupabase } from "@/composables/useSupabase";
+import { useUser } from "@/composables/useUser";
+import { IconColors, PeriodTypes } from "@/ts/enums";
 
 // -> misc
 const {
@@ -61,9 +77,28 @@ const {
   deleteMealById,
   wasSuccessful,
   deleteIssueById,
+  getPeriodByUserAndDay,
+  periodByUserAndDay,
+  deletePeriodById,
+  addPeriod,
 } = useSupabase();
 const route = useRoute();
 const router = useRouter();
+// -> period
+const { period, uid } = useUser();
+const needsPeriodTracking = computed<boolean>(() => {
+  return period.value ? period.value !== PeriodTypes.noperiod : false;
+});
+const insertPeriod = async (): Promise<void> => {
+  if (!uid.value || !activeDate.value) return;
+  await addPeriod({
+    uid: uid.value,
+    created_at: activeDate.value,
+  });
+  if (wasSuccessful.value) {
+    await getPeriodByUserAndDay(activeDate.value);
+  }
+};
 // -> active date
 const activeDate = ref<Date | false>(false);
 const activeDateTitle = computed<string>(() => {
@@ -88,15 +123,16 @@ const activeDateIsToday = computed<boolean>(() => {
   );
 });
 // -> entries
-type EntryType = "meal" | "issue";
+type EntryType = "meal" | "issue" | "period";
 interface ListEntry {
   id: string;
   time: string;
   title: string;
   type: EntryType;
+  color: keyof typeof IconColors;
 }
 const entriesSortedByTime = computed<ListEntry[]>(() => {
-  if (!issuesByUserAndDay && !mealsByUserAndDay) return [];
+  if (!issuesByUserAndDay.value && !mealsByUserAndDay.value) return [];
   const combinedEntries = [] as ListEntry[];
   if (issuesByUserAndDay.value) {
     issuesByUserAndDay.value.forEach((issue) => {
@@ -106,6 +142,7 @@ const entriesSortedByTime = computed<ListEntry[]>(() => {
         time: format.toTime("H:i", date),
         title: "Beschwerden",
         type: "issue",
+        color: "accentdark",
       });
     });
   }
@@ -117,6 +154,7 @@ const entriesSortedByTime = computed<ListEntry[]>(() => {
         time: format.toTime("H:i", date),
         title: meal?.title || "Mahlzeit",
         type: "meal",
+        color: "dark",
       });
     });
   }
@@ -137,11 +175,18 @@ const deleteEntry = async (type: EntryType, id: string) => {
       await getIssuesByUserAndDay(activeDate.value);
     }
   }
+  if (type === "period") {
+    await deletePeriodById(id);
+    if (wasSuccessful.value && activeDate.value) {
+      await getPeriodByUserAndDay(activeDate.value);
+    }
+  }
 };
 onMounted(() => {
   activeDate.value = create.dateByDatestring(route.params.day.toString());
   getMealsByUserAndDay(activeDate.value);
   getIssuesByUserAndDay(activeDate.value);
+  getPeriodByUserAndDay(activeDate.value);
 });
 </script>
 
@@ -178,5 +223,17 @@ onMounted(() => {
       border-left: 1px solid $color_accentdark;
     }
   }
+  &[data-type="period"] {
+    border: 1px solid $color_danger;
+    .ct-icon {
+      border-left: 1px solid $color_danger;
+    }
+  }
+}
+.ct-period {
+  padding-top: $gap_inner-big;
+}
+.ct-periodentry {
+  @include flex(row, space-between, center);
 }
 </style>
