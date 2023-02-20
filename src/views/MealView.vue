@@ -25,6 +25,14 @@
           @keydown.enter="addItem"
           :readonly="isProcessing"
         />
+        <datalist id="fooditem">
+          <option
+            v-for="food in foodsByUser"
+            :key="`food-${food}`"
+            :value="food"
+            v-text="food"
+          />
+        </datalist>
         <div class="ct-icon add" @click="addItem">
           <icon-loader
             icon="check"
@@ -65,7 +73,8 @@ import { useSupabase } from "@/composables/useSupabase";
 
 // -> misc
 const { uid } = useUser();
-const { addMeal, isProcessing, wasSuccessful } = useSupabase();
+const { addMeal, foodsByUser, getFoodsByUser, isProcessing, wasSuccessful } =
+  useSupabase();
 const router = useRouter();
 const route = useRoute();
 // -> form fields
@@ -103,6 +112,7 @@ const insertFood = async (): Promise<void> => {
   }
 };
 onMounted(() => {
+  getFoodsByUser();
   const date = route.query.day
     ? create.dateByDatestring(route.query.day.toString() + "T12:00:00")
     : create.dateNow();
