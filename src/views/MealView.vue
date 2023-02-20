@@ -21,11 +21,12 @@
         <input
           type="text"
           id="fooditem"
+          list="fooditemlist"
           v-model="fooditem"
           @keydown.enter="addItem"
           :readonly="isProcessing"
         />
-        <datalist id="fooditem">
+        <datalist id="fooditemlist">
           <option
             v-for="food in foodsByUser"
             :key="`food-${food}`"
