@@ -1,6 +1,7 @@
 import { computed, onMounted, ref } from "vue";
 import type { peopleTable } from "@/composables/useSupabase";
 import { supabase } from "@/services/supabase";
+import { NutritionTypes } from "@/ts/enums";
 export const useUser = () => {
   // -> auth data
   const authdata = localStorage.getItem("sb-lbauizlhaxtupjrudtln-auth-token");
@@ -16,6 +17,11 @@ export const useUser = () => {
   );
   // -> user data
   const userdata = ref<peopleTable | false>(false);
+  const nutrition = computed<NutritionTypes>(() => {
+    if (!userdata.value) return NutritionTypes.meat;
+    if (!userdata.value.nutrition_type) return NutritionTypes.meat;
+    return userdata.value.nutrition_type;
+  });
   const getUserdata = async (): Promise<void> => {
     if (!userLoggedIn.value) return;
     const { data: people } = await supabase
@@ -37,5 +43,6 @@ export const useUser = () => {
     uid,
     email,
     userdata,
+    nutrition,
   };
 };

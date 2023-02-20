@@ -8,11 +8,7 @@
       @click="navigateTo(item.name)"
       :class="{ active: route.name === item.name }"
     >
-      <icon-loader
-        :icon="item.icon"
-        is-reduced
-        :nutrition-type="userdata?.nutrition_type || 1"
-      />
+      <icon-loader :icon="item.icon" is-reduced :nutrition-type="nutrition" />
       <p class="typo-info">{{ item.title }}</p>
     </div>
   </nav>
@@ -26,7 +22,7 @@ import { useUser } from "@/composables/useUser";
 // -> misc
 const router = useRouter();
 const route = useRoute();
-const { userdata } = useUser();
+const { nutrition } = useUser();
 // -> items
 interface NavItem {
   title: string;
