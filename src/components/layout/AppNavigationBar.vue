@@ -8,42 +8,54 @@
       @click="navigateTo(item.name)"
       :class="{ active: route.name === item.name }"
     >
-      <img :src="item.icon" :alt="`Icon ${item.title}`" />
+      <icon-loader
+        :icon="item.icon"
+        is-reduced
+        :nutrition-type="userdata?.nutrition_type || 1"
+      />
       <p class="typo-info">{{ item.title }}</p>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-import iconMeal from "@/assets/icons/meal_minimized.svg";
-import iconIssues from "@/assets/icons/issues_minimized.svg";
-import iconCalendar from "@/assets/icons/calendar_minimized.svg";
-import iconCorrelation from "@/assets/icons/correlations_minimized.svg";
+import IconLoader from "@/components/elements/IconLoader.vue";
 import { useRoute, useRouter } from "vue-router";
+import type { IconNames } from "@/ts/types";
+import { useUser } from "@/composables/useUser";
+// -> misc
 const router = useRouter();
 const route = useRoute();
-const navitems = [
+const { userdata } = useUser();
+// -> items
+interface NavItem {
+  title: string;
+  name: string;
+  icon: IconNames;
+}
+const navitems: NavItem[] = [
   {
     title: "Mahlzeit",
     name: "meal",
-    icon: iconMeal,
+    icon: "meal",
   },
   {
     title: "Beschwerden",
     name: "issues",
-    icon: iconIssues,
+    icon: "issues",
   },
   {
     title: "Kalender",
     name: "calendar",
-    icon: iconCalendar,
+    icon: "calendar",
   },
   {
     title: "Korrelation",
     name: "correlation",
-    icon: iconCorrelation,
+    icon: "correlations",
   },
 ];
+// -> navigation
 const navigateTo = (name: string) => {
   router.push({ name: name });
 };
@@ -62,7 +74,7 @@ nav {
     height: 100%;
     background: $color_light;
     @include flex(column, flex-end, center, px(4));
-    img {
+    svg {
       object-fit: contain;
     }
     &:not(:last-of-type) {

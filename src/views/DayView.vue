@@ -1,5 +1,6 @@
 <template>
   <view-title :title="activeDateTitle" icon="day" />
+  <!-- entries -->
   <div class="ct-entries" v-if="entriesSortedByTime.length">
     <p class="typo-info">Vorhandene Einträge</p>
     <div
@@ -13,24 +14,25 @@
         <p class="typo-mono">{{ entry.time }}</p>
         <p>{{ entry.title }}</p>
       </div>
-      <div class="ct-image">
-        <img
-          :src="entry.type === 'issue' ? EditIconLightUrl : EditIconDarkUrl"
-          alt="Icon Bearbeiten"
+      <div class="ct-icon">
+        <icon-loader
+          icon="edit"
+          :color="entry.type === 'issue' ? 'accentdark' : 'dark'"
         />
       </div>
-      <div class="ct-image">
-        <img
-          :src="entry.type === 'issue' ? CrossIconLightUrl : CrossIconDarkUrl"
-          alt="Icon Löschen"
-          @click="deleteEntry(entry.type, entry.id)"
+      <div class="ct-icon" @click="deleteEntry(entry.type, entry.id)">
+        <icon-loader
+          icon="cross"
+          :color="entry.type === 'issue' ? 'accentdark' : 'dark'"
         />
       </div>
     </div>
   </div>
+  <!-- fallback -->
   <div class="ct-noentries" v-else>
     <p class="typo-info">Noch keine Einträge vorhanden</p>
   </div>
+  <!-- buttons -->
   <div class="ct-buttons">
     <action-button link="meal" :query="activeDateQuery">
       Mahlzeit eintragen
@@ -43,16 +45,14 @@
 
 <script setup lang="ts">
 import ViewTitle from "@/components/layout/ViewTitle.vue";
-import EditIconDarkUrl from "@/assets/icons/edit.svg";
-import EditIconLightUrl from "@/assets/icons/edit_light.svg";
-import CrossIconDarkUrl from "@/assets/icons/cross_dark.svg";
-import CrossIconLightUrl from "@/assets/icons/cross.svg";
-import { useRoute, useRouter } from "vue-router";
+import ActionButton from "@/components/elements/ActionButton.vue";
+import IconLoader from "@/components/elements/IconLoader.vue";
 import { computed, onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { create, format } from "datenow-ts";
 import { useSupabase } from "@/composables/useSupabase";
-import ActionButton from "@/components/elements/ActionButton.vue";
 
+// -> misc
 const {
   getMealsByUserAndDay,
   mealsByUserAndDay,
@@ -64,7 +64,7 @@ const {
 } = useSupabase();
 const route = useRoute();
 const router = useRouter();
-
+// -> active date
 const activeDate = ref<Date | false>(false);
 const activeDateTitle = computed<string>(() => {
   if (!activeDate.value) return "";
@@ -87,7 +87,7 @@ const activeDateIsToday = computed<boolean>(() => {
     today.getDate() === activeDate.value.getDate()
   );
 });
-
+// -> entries
 type EntryType = "meal" | "issue";
 interface ListEntry {
   id: string;
@@ -138,7 +138,6 @@ const deleteEntry = async (type: EntryType, id: string) => {
     }
   }
 };
-
 onMounted(() => {
   activeDate.value = create.dateByDatestring(route.params.day.toString());
   getMealsByUserAndDay(activeDate.value);
@@ -162,7 +161,7 @@ onMounted(() => {
       margin-top: negative(px(5));
     }
   }
-  .ct-image {
+  .ct-icon {
     aspect-ratio: 1/1;
     @include flex();
     border-left: 1px solid $color_dark;
@@ -175,7 +174,7 @@ onMounted(() => {
   }
   &[data-type="issue"] {
     border: 1px solid $color_accentdark;
-    .ct-image {
+    .ct-icon {
       border-left: 1px solid $color_accentdark;
     }
   }

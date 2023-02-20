@@ -1075,6 +1075,7 @@
 import type { IconNames } from "@/ts/types";
 import { IconColors, NutritionTypes } from "@/ts/enums";
 import { computed } from "vue";
+
 const props = defineProps({
   icon: { required: true, type: String as () => IconNames },
   color: {
@@ -1085,8 +1086,8 @@ const props = defineProps({
   isReduced: { required: false, type: Boolean, default: false },
   nutritionType: {
     required: false,
-    type: String as () => keyof typeof NutritionTypes,
-    default: "meat",
+    type: Number as () => NutritionTypes,
+    default: 1,
   },
   width: { required: false, type: Number, default: 0 },
   height: { required: false, type: Number, default: 0 },
@@ -1124,13 +1125,13 @@ const dimensions = (
 
 // -> nutrition types
 const isMeat = computed<boolean>(
-  () => NutritionTypes[props.nutritionType] === NutritionTypes.meat
+  () => props.nutritionType === NutritionTypes.meat
 );
 const isVegetarian = computed<boolean>(
-  () => NutritionTypes[props.nutritionType] === NutritionTypes.vegetarian
+  () => props.nutritionType === NutritionTypes.vegetarian
 );
 const isVegan = computed<boolean>(
-  () => NutritionTypes[props.nutritionType] === NutritionTypes.vegan
+  () => props.nutritionType === NutritionTypes.vegan
 );
 // -> color
 const iconColor = computed<IconColors>(() =>

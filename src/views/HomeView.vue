@@ -24,11 +24,11 @@
 </template>
 
 <script setup lang="ts">
-import { useUser } from "@/composables/useUser";
 import CurrentDate from "@/components/layout/CurrentDate.vue";
-import { useSupabase } from "@/composables/useSupabase";
 import { onMounted } from "vue";
-import { create, format } from "datenow-ts";
+import { create } from "datenow-ts";
+import { useUser } from "@/composables/useUser";
+import { useSupabase } from "@/composables/useSupabase";
 
 const { userdata } = useUser();
 const {

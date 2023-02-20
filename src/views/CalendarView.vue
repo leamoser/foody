@@ -3,9 +3,13 @@
   <div class="ct-calendar">
     <!-- month indicator -->
     <div class="ct-month">
-      <img :src="PrevIconUrl" alt="Icon Previous" @click="goToPrevMonth" />
+      <div class="ct-icon" @click="goToPrevMonth">
+        <icon-loader icon="prev" />
+      </div>
       <p>{{ activeMonthString }}</p>
-      <img :src="NextIconUrl" alt="Icon Next" @click="goToNextMonth" />
+      <div class="ct-icon" @click="goToNextMonth">
+        <icon-loader icon="next" />
+      </div>
     </div>
     <!-- backlink -->
     <div class="ct-back" v-if="!activeMonthIsCurrentMonth">
@@ -43,15 +47,14 @@
 </template>
 
 <script setup lang="ts">
-import NextIconUrl from "@/assets/icons/next.svg";
-import PrevIconUrl from "@/assets/icons/prev.svg";
 import ViewTitle from "@/components/layout/ViewTitle.vue";
+import CalendarLegend from "@/components/calendar/CalendarLegend.vue";
+import IconLoader from "@/components/elements/IconLoader.vue";
 import { computed, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import { format, create, modify, get, helper, compare } from "datenow-ts";
 import type { CalendarizedDate, Day, Month, Year } from "datenow-ts/lib/types";
-import { useRouter } from "vue-router";
 import { useSupabase } from "@/composables/useSupabase";
-import CalendarLegend from "@/components/calendar/CalendarLegend.vue";
 // -> helpers
 const router = useRouter();
 const weekdays = helper.weekdaysShort("de");

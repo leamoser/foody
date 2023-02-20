@@ -25,7 +25,7 @@
           @keydown.enter="addItem"
           :readonly="isProcessing"
         />
-        <div class="add" @click="addItem">
+        <div class="ct-icon add" @click="addItem">
           <icon-loader
             icon="check"
             :disabled="!fooditem.length || isProcessing"
@@ -41,7 +41,9 @@
       :key="`fooditem-${item}-${index}`"
     >
       <p class="typo-text typo-accent" v-text="item" />
-      <img :src="crossIconUrl" alt="Icon Löschen" @click="removeItem(item)" />
+      <div class="ct-icon" @click="removeItem(item)">
+        <icon-loader icon="cross" color="accentdark" />
+      </div>
     </div>
   </div>
   <div class="ct-submit">
@@ -52,28 +54,31 @@
 </template>
 
 <script setup lang="ts">
-import crossIconUrl from "@/assets/icons/cross.svg";
-import checkIconUrl from "@/assets/icons/check.svg";
 import ViewTitle from "@/components/layout/ViewTitle.vue";
-import { computed, onMounted, ref, watch } from "vue";
 import ActionButton from "@/components/elements/ActionButton.vue";
+import IconLoader from "@/components/elements/IconLoader.vue";
+import { computed, onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { create, format } from "datenow-ts";
 import { useUser } from "@/composables/useUser";
 import { useSupabase } from "@/composables/useSupabase";
-import { useRoute, useRouter } from "vue-router";
-import IconLoader from "@/components/elements/IconLoader.vue";
+
+// -> misc
 const { uid } = useUser();
 const { addMeal, isProcessing, wasSuccessful } = useSupabase();
 const router = useRouter();
 const route = useRoute();
+// -> form fields
 const title = ref<string>("");
 const day = ref<string>("");
 const time = ref<string>("");
 const fooditem = ref<string>("");
 const food = ref<string[]>([]);
+// -> validation
 const formValid = computed<boolean>(() => {
   return !!title.value && !!day.value && !!time.value && !!food.value.length;
 });
+// -> array
 const addItem = (): void => {
   if (!fooditem.value.length) return;
   food.value.push(fooditem.value);
@@ -84,6 +89,7 @@ const removeItem = (item: string): void => {
   const indexOfItem = food.value.indexOf(item);
   food.value.splice(indexOfItem, 1);
 };
+// -> data
 const insertFood = async (): Promise<void> => {
   if (!uid.value) return;
   await addMeal({

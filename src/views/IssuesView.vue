@@ -35,23 +35,27 @@
 
 <script setup lang="ts">
 import ViewTitle from "@/components/layout/ViewTitle.vue";
+import ActionButton from "@/components/elements/ActionButton.vue";
 import { computed, onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { create, format } from "datenow-ts";
 import { useSupabase } from "@/composables/useSupabase";
 import { useUser } from "@/composables/useUser";
-import { create, format } from "datenow-ts";
-import ActionButton from "@/components/elements/ActionButton.vue";
-import { useRoute, useRouter } from "vue-router";
 
+// -> misc
 const { uid } = useUser();
 const { isProcessing, wasSuccessful, addIssue, issues } = useSupabase();
 const router = useRouter();
 const route = useRoute();
+// -> form fields
 const day = ref<string>("");
 const time = ref<string>("");
 const activeIssues = ref<string[]>([]);
+// -> validation
 const formValid = computed<boolean>(() => {
   return !!day.value && !!time.value && !!activeIssues.value.length;
 });
+// -> array
 const toggleIssue = (issue: string): void => {
   if (activeIssues.value.includes(issue)) {
     removeActiveIssue(issue);
@@ -67,6 +71,7 @@ const removeActiveIssue = (issue: string): void => {
   if (index < 0) return;
   activeIssues.value.splice(index, 1);
 };
+// -> data
 const insertIssue = async (): Promise<void> => {
   if (!uid.value) return;
   await addIssue({
@@ -78,7 +83,6 @@ const insertIssue = async (): Promise<void> => {
     await router.push({ name: "home" });
   }
 };
-
 onMounted(() => {
   const date = route.query.day
     ? create.dateByDatestring(route.query.day.toString() + "T12:00:00")

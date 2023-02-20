@@ -3,7 +3,7 @@
     <div class="ct-head">
       <logo :title="route.meta.pagetitle" />
       <router-link to="profile">
-        <img :src="userIcon" alt="Icon User" />
+        <icon-loader icon="user" />
       </router-link>
     </div>
     <section class="ct-content">
@@ -15,9 +15,9 @@
 
 <script setup lang="ts">
 import Logo from "@/components/layout/Logo.vue";
-import { useRoute } from "vue-router";
-import userIcon from "@/assets/icons/user.svg";
 import AppNavigationBar from "@/components/layout/AppNavigationBar.vue";
+import IconLoader from "@/components/elements/IconLoader.vue";
+import { useRoute } from "vue-router";
 const route = useRoute();
 </script>
 
