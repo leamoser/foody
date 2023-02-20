@@ -55,7 +55,7 @@
       </div>
     </div>
   </div>
-  <div class="ct-submit">
+  <div class="ct-buttons-floating">
     <action-button @click="insertFood" :disabled="!formValid || isProcessing">
       eintragen
     </action-button>
@@ -142,12 +142,5 @@ onMounted(() => {
     @include flex();
     padding: $gap_inner-small;
   }
-}
-.ct-submit {
-  position: fixed;
-  bottom: px(65);
-  left: 0;
-  width: 100vw;
-  @include flex();
 }
 </style>

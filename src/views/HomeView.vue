@@ -1,6 +1,6 @@
 <template>
-  <p class="typo-text intro" v-if="userdata">
-    Hallo {{ userdata.name }},<br />
+  <p class="typo-text intro" v-if="name">
+    Hallo {{ name }},<br />
     schön bist du hier.
   </p>
   <current-date />
@@ -30,7 +30,7 @@ import { create } from "datenow-ts";
 import { useUser } from "@/composables/useUser";
 import { useSupabase } from "@/composables/useSupabase";
 
-const { userdata } = useUser();
+const { name } = useUser();
 const {
   getMealsByUserAndDay,
   mealsByUserAndDay,

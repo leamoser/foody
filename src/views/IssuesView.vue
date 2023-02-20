@@ -26,7 +26,7 @@
       </div>
     </div>
   </div>
-  <div class="ct-submit">
+  <div class="ct-buttons-floating">
     <action-button @click="insertIssue" :disabled="!formValid || isProcessing">
       eintragen
     </action-button>
@@ -111,12 +111,5 @@ onMounted(() => {
       background: $color_accentlight;
     }
   }
-}
-.ct-submit {
-  position: fixed;
-  bottom: px(65);
-  left: 0;
-  width: 100vw;
-  @include flex();
 }
 </style>

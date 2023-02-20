@@ -4,7 +4,7 @@
       <logo :title="route.meta.pagetitle" />
       <router-link to="profile">
         <div class="ct-profile">
-          <p class="typo-info" v-text="userShortName" />
+          <p class="typo-info" v-text="shortname" />
         </div>
       </router-link>
     </div>
@@ -22,12 +22,7 @@ import { useRoute } from "vue-router";
 import { useUser } from "@/composables/useUser";
 import { computed } from "vue";
 const route = useRoute();
-const { userdata } = useUser();
-const userShortName = computed<string>(() => {
-  if (!userdata.value) return "?";
-  if (!userdata.value.name) return "?";
-  return userdata.value.name.substring(0, 2);
-});
+const { shortname } = useUser();
 </script>
 
 <style lang="scss" scoped>

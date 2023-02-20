@@ -33,7 +33,7 @@
     <p class="typo-info">Noch keine Einträge vorhanden</p>
   </div>
   <!-- buttons -->
-  <div class="ct-buttons">
+  <div class="ct-buttons-floating">
     <action-button link="meal" :query="activeDateQuery">
       Mahlzeit eintragen
     </action-button>
@@ -178,12 +178,5 @@ onMounted(() => {
       border-left: 1px solid $color_accentdark;
     }
   }
-}
-.ct-buttons {
-  position: fixed;
-  bottom: px(65);
-  left: 0;
-  width: 100vw;
-  @include flex(column, center, center);
 }
 </style>

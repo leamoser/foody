@@ -98,3 +98,12 @@ p, .typo-text {
     font-family: "antarctican-mono", monospace;
   }
 }
+
+// -> buttonslists
+.ct-buttons-floating {
+  position: fixed;
+  bottom: px(65);
+  left: 0;
+  width: 100vw;
+  @include flex(column, center, center);
+}
