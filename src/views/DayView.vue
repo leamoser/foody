@@ -22,6 +22,10 @@
       </div>
     </div>
   </div>
+  <!-- fallback -->
+  <div class="ct-noentries" v-else>
+    <p class="typo-info">Noch keine Einträge vorhanden</p>
+  </div>
   <!-- period entry -->
   <div
     class="ct-period typo-danger"
@@ -35,10 +39,6 @@
       <p>Periode eingetragen</p>
       <p class="typo-info" @click="deleteEntry('period', period.id)">löschen</p>
     </div>
-  </div>
-  <!-- fallback -->
-  <div class="ct-noentries" v-else>
-    <p class="typo-info">Noch keine Einträge vorhanden</p>
   </div>
   <!-- buttons -->
   <div class="ct-buttons-floating">
