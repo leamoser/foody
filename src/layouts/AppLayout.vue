@@ -18,7 +18,6 @@
 <script setup lang="ts">
 import Logo from "@/components/layout/Logo.vue";
 import AppNavigationBar from "@/components/layout/AppNavigationBar.vue";
-import IconLoader from "@/components/elements/IconLoader.vue";
 import { useRoute } from "vue-router";
 import { useUser } from "@/composables/useUser";
 import { computed } from "vue";

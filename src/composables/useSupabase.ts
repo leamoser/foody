@@ -91,6 +91,7 @@ export const useSupabase = () => {
   };
   const mealsByUserAndDay = ref<mealsTable[] | false>(false);
   const mealsByUserAndMonth = ref<mealsTable[] | false>(false);
+  const foodsByUser = ref<string[]>([]);
   const getMealsByUserAndDay = async (date: Date): Promise<void> => {
     isProcessing.value = true;
     const dayStart = format.toISO(dateWithResettedTime(date));
@@ -143,6 +144,24 @@ export const useSupabase = () => {
     const { status } = await supabase.from("meals").delete().eq("id", id);
     isProcessing.value = false;
     wasSuccessful.value = status < 300;
+  };
+  const getFoodsByUser = async (): Promise<void> => {
+    isProcessing.value = true;
+    const { data: meals } = await supabase
+      .from("meals")
+      .select("food")
+      .eq("uid", uid.value);
+    isProcessing.value = false;
+    if (meals) {
+      wasSuccessful.value = true;
+      const allFoods = [].concat(
+        ...meals.map((meal) => {
+          return JSON.parse(meal.food);
+        })
+      );
+      const uniqueFoods = [...new Set(allFoods)];
+      foodsByUser.value = uniqueFoods;
+    }
   };
 
   // -> table: issues
@@ -233,6 +252,8 @@ export const useSupabase = () => {
     getMealsByUserAndMonth,
     mealsByUserAndMonth,
     deleteMealById,
+    foodsByUser,
+    getFoodsByUser,
     // -> issues
     issues,
     getIssuesByUserAndDay,
