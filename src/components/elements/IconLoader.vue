@@ -1053,14 +1053,19 @@
     v-if="icon === 'user'"
     :class="{ disabled: disabled }"
     xmlns="http://www.w3.org/2000/svg"
-    :width="dimensions(13.853, 20.697).width"
-    :height="dimensions(13.853, 20.697).height"
-    viewBox="0 0 13.853 20.697"
+    :width="dimensions(38.325, 58.691).width"
+    :height="dimensions(38.325, 58.691).height"
+    viewBox="0 0 38.325 58.691"
   >
-    <g id="Gruppe_119" transform="translate(-306.072 -52.651)">
+    <g
+      id="Gruppe_173"
+      data-name="Gruppe 173"
+      transform="translate(-306.131 -52.68)"
+    >
       <path
         id="Pfad_20"
-        d="M654.18,527.912h12.061s.735-8.318-1.824-9.6a14.251,14.251,0,0,1-3.2-1.919s5.758-2.559,3.839-5.118-3.839-3.839-5.758-2.56-2.559,4.479-1.92,5.758-1.92,3.034-3.2,5.037S654.18,527.912,654.18,527.912Z"
+        data-name="Pfad 20"
+        d="M655.277,565.934h35.344s2.155-24.375-5.344-28.124-9.375-5.625-9.375-5.625,16.874-7.5,11.249-15-11.249-11.25-16.874-7.5-7.5,13.124-5.625,16.874-5.625,8.892-9.375,14.759S655.277,565.934,655.277,565.934Z"
         transform="translate(-346.975 -455.064)"
         fill="#fff"
         :stroke="iconColor"
