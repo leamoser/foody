@@ -85,6 +85,8 @@ p, .typo-text {
     margin-bottom: px(6);
   }
   input, select {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
     padding: px(10);
     width: 100%;
     border: 1px solid $color_dark;
