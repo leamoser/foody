@@ -13,7 +13,7 @@
     </div>
     <!-- backlink -->
     <div class="ct-back" v-if="!activeMonthIsCurrentMonth">
-      <p @click="goTocurrentMonth" class="typo-info">
+      <p @click="goToCurrentMonth" class="typo-info">
         zurück zum {{ currentMonthString }}
       </p>
     </div>
@@ -37,6 +37,7 @@
           today: dayIsToday(dayObject.day),
           issues: dayHasIssue(dayObject.day),
           meals: dayHasMeal(dayObject.day),
+          period: dayHasPeriod(dayObject.day)
         }"
         @click="goToDay(dayObject.day)"
       />
@@ -58,9 +59,10 @@ import { useSupabase } from "@/composables/useSupabase";
 // -> helpers
 const router = useRouter();
 const weekdays = helper.weekdaysShort("de");
-const loadMealsAndIssuesPerMonth = (): void => {
+const loadDataPerMonth = (): void => {
   getMealsByUserAndMonth(activeMonthNumber.value, activeYear.value);
   getIssuesByUserAndMonth(activeMonthNumber.value, activeYear.value);
+  getPeriodByUserAndMonth(activeMonthNumber.value, activeYear.value);
 };
 
 // -> depending on activeDate
@@ -82,26 +84,28 @@ const calendarizedMonth = computed<CalendarizedDate[]>(() => {
   return get.calendarizedMonth(activeDate.value, "de");
 });
 const {
-  mealsByUserAndMonth,
   getMealsByUserAndMonth,
+  mealsByUserAndMonth,
   getIssuesByUserAndMonth,
   issuesByUserAndMonth,
+  getPeriodByUserAndMonth,
+  periodByUserAndMonth
 } = useSupabase();
 
 // -> navigation
 const goToNextMonth = (): void => {
   const setToFirst = modify.day.changeTo(activeDate.value, 1);
   activeDate.value = modify.month.add(setToFirst, 1);
-  loadMealsAndIssuesPerMonth();
+  loadDataPerMonth();
 };
 const goToPrevMonth = (): void => {
   const setToFirst = modify.day.changeTo(activeDate.value, 1);
   activeDate.value = modify.month.subtract(setToFirst, 1);
-  loadMealsAndIssuesPerMonth();
+  loadDataPerMonth();
 };
-const goTocurrentMonth = (): void => {
+const goToCurrentMonth = (): void => {
   activeDate.value = create.dateNow();
-  loadMealsAndIssuesPerMonth();
+  loadDataPerMonth();
 };
 const goToDay = (day: Day): void => {
   const clickedDay = modify.day.changeTo(activeDate.value, day);
@@ -143,9 +147,21 @@ const dayHasMeal = (day: Day): boolean => {
     return !!compare.isSameExactDay(dateMeal, dateActive);
   });
 };
+const dayHasPeriod = (day: Day): boolean => {
+  if (!periodByUserAndMonth.value) return false;
+  return periodByUserAndMonth.value.some((period) => {
+    const datePeriod = create.dateByDatestring(period.created_at || "");
+    const dateActive = create.dateByParams({
+      year: activeYear.value,
+      month: activeMonthNumber.value,
+      day,
+    });
+    return !!compare.isSameExactDay(datePeriod, dateActive);
+  });
+};
 
 onMounted(() => {
-  loadMealsAndIssuesPerMonth();
+  loadDataPerMonth();
 });
 </script>
 
@@ -188,6 +204,15 @@ onMounted(() => {
     }
     &.meals {
       background: $color_dark-20;
+    }
+    &.period::after {
+      content: '';
+      width: px(2);
+      height: px(2);
+      background: $color_danger;
+      position: absolute;
+      bottom: px(3);
+      border-radius: 100%;
     }
   }
 }

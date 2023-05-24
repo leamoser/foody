@@ -68,7 +68,7 @@ import ActionButton from "@/components/elements/ActionButton.vue";
 import IconLoader from "@/components/elements/IconLoader.vue";
 import {computed, onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
-import {create, format} from "datenow-ts";
+import {create, format, modify} from "datenow-ts";
 import {useSupabase} from "@/composables/useSupabase";
 import {useUser} from "@/composables/useUser";
 import {IconColors, PeriodTypes} from "@/ts/enums";
@@ -95,10 +95,12 @@ const needsPeriodTracking = computed<boolean>(() => {
   return period.value ? period.value !== PeriodTypes.noperiod : false;
 });
 const insertPeriod = async (): Promise<void> => {
-  if (!uid.value || !activeDate.value) return;
+  if (!activeDate.value) return;
+  const date = modify.hour.add(new Date(activeDate.value), 4);
+  if (!uid.value) return;
   await addPeriod({
     uid: uid.value,
-    created_at: activeDate.value,
+    created_at: date,
   });
   if (wasSuccessful.value) {
     await getPeriodByUserAndDay(activeDate.value);

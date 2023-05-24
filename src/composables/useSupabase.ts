@@ -252,7 +252,6 @@ export const useSupabase = () => {
 
   // -> table: period
   const addPeriod = async (data: periodTableInsert) => {
-    isProcessing.value = true;
     const { status } = await supabase.from("period").insert([
       {
         created_at: data.created_at,
