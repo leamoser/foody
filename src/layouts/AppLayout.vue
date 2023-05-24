@@ -27,7 +27,7 @@ const { shortname } = useUser();
 
 <style lang="scss" scoped>
 main {
-  padding-bottom: px(150);
+  padding-bottom: px(250);
 }
 .ct-head {
   @include flex(row, space-between, center);

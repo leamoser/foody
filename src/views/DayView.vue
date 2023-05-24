@@ -1,24 +1,29 @@
 <template>
-  <view-title :title="activeDateTitle" icon="day" />
+  <view-title :title="activeDateTitle" icon="day"/>
   <!-- entries -->
   <div class="ct-entries" v-if="entriesSortedByTime && entriesSortedByTime.length">
     <p class="typo-info">Vorhandene Einträge</p>
     <div
-      v-for="(entry, index) in entriesSortedByTime"
-      :key="`entry-${index}`"
-      class="ct-entry"
-      :data-type="entry.type"
-      :class="{ 'typo-accent': entry.type === 'issue' }"
+        v-for="(entry, index) in entriesSortedByTime"
+        :key="`entry-${index}`"
+        class="ct-entry"
+        :data-type="entry.type"
+        :class="{ 'typo-accent': entry.type === 'issue' }"
     >
-      <div class="ct-infos">
-        <p class="typo-mono">{{ entry.time }}</p>
-        <p>{{ entry.title }}</p>
+      <div class="ct-stats">
+        <div class="ct-infos">
+          <p class="typo-mono">{{ entry.time }}</p>
+          <p>{{ entry.title }}</p>
+        </div>
+        <div class="ct-icon">
+          <icon-loader icon="edit" :color="entry.color"/>
+        </div>
+        <div class="ct-icon" @click="deleteEntry(entry.type, entry.id)">
+          <icon-loader icon="cross" :color="entry.color"/>
+        </div>
       </div>
-      <div class="ct-icon">
-        <icon-loader icon="edit" :color="entry.color" />
-      </div>
-      <div class="ct-icon" @click="deleteEntry(entry.type, entry.id)">
-        <icon-loader icon="cross" :color="entry.color" />
+      <div class="ct-entry-entries">
+        <p class="typo-info typo-light" v-for="(e, index) in entry.entries" :key="index">{{ e }}</p>
       </div>
     </div>
   </div>
@@ -28,13 +33,13 @@
   </div>
   <!-- period entry -->
   <div
-    class="ct-period typo-danger"
-    v-if="needsPeriodTracking && periodByUserAndDay && periodByUserAndDay.length"
+      class="ct-period typo-danger"
+      v-if="needsPeriodTracking && periodByUserAndDay && periodByUserAndDay.length"
   >
     <div
-      class="ct-periodentry"
-      v-for="period in periodByUserAndDay"
-      :key="`period-${period.uid}`"
+        class="ct-periodentry"
+        v-for="period in periodByUserAndDay"
+        :key="`period-${period.uid}`"
     >
       <p>Periode eingetragen</p>
       <p class="typo-info" @click="deleteEntry('period', period.id)">löschen</p>
@@ -49,8 +54,8 @@
       Beschwerden eintragen
     </action-button>
     <action-button
-      @click="insertPeriod"
-      v-if="needsPeriodTracking && periodByUserAndDay && !periodByUserAndDay?.length"
+        @click="insertPeriod"
+        v-if="needsPeriodTracking && periodByUserAndDay && !periodByUserAndDay?.length"
     >
       Periode eintragen
     </action-button>
@@ -61,12 +66,12 @@
 import ViewTitle from "@/components/layout/ViewTitle.vue";
 import ActionButton from "@/components/elements/ActionButton.vue";
 import IconLoader from "@/components/elements/IconLoader.vue";
-import { computed, onMounted, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { create, format } from "datenow-ts";
-import { useSupabase } from "@/composables/useSupabase";
-import { useUser } from "@/composables/useUser";
-import { IconColors, PeriodTypes } from "@/ts/enums";
+import {computed, onMounted, ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import {create, format} from "datenow-ts";
+import {useSupabase} from "@/composables/useSupabase";
+import {useUser} from "@/composables/useUser";
+import {IconColors, PeriodTypes} from "@/ts/enums";
 
 // -> misc
 const {
@@ -85,7 +90,7 @@ const {
 const route = useRoute();
 const router = useRouter();
 // -> period
-const { period, uid } = useUser();
+const {period, uid} = useUser();
 const needsPeriodTracking = computed<boolean>(() => {
   return period.value ? period.value !== PeriodTypes.noperiod : false;
 });
@@ -111,26 +116,29 @@ const activeDateQuery = computed<{ [key: string]: string } | {}>(() => {
   if (!activeDate.value) return {};
   if (activeDateIsToday.value) return {};
   const date = format.toDate("Y-m-d", activeDate.value, "de") || false;
-  return date ? { day: date } : {};
+  return date ? {day: date} : {};
 });
 const activeDateIsToday = computed<boolean>(() => {
   if (!activeDate.value) return false;
   const today = create.dateNow();
   return (
-    today.getFullYear() === activeDate.value.getFullYear() &&
-    today.getMonth() === activeDate.value.getMonth() &&
-    today.getDate() === activeDate.value.getDate()
+      today.getFullYear() === activeDate.value.getFullYear() &&
+      today.getMonth() === activeDate.value.getMonth() &&
+      today.getDate() === activeDate.value.getDate()
   );
 });
 // -> entries
 type EntryType = "meal" | "issue" | "period";
+
 interface ListEntry {
   id: string;
   time: string;
   title: string;
   type: EntryType;
   color: keyof typeof IconColors;
+  entries: string[]
 }
+
 const entriesSortedByTime = computed<ListEntry[]>(() => {
   if (!issuesByUserAndDay.value && !mealsByUserAndDay.value) return [];
   const combinedEntries = [] as ListEntry[];
@@ -142,6 +150,7 @@ const entriesSortedByTime = computed<ListEntry[]>(() => {
         time: format.toTime("H:i", date),
         title: "Beschwerden",
         type: "issue",
+        entries: issue?.issues ? JSON.parse(issue?.issues) : [],
         color: "accentdark",
       });
     });
@@ -154,6 +163,7 @@ const entriesSortedByTime = computed<ListEntry[]>(() => {
         time: format.toTime("H:i", date),
         title: meal?.title || "Mahlzeit",
         type: "meal",
+        entries: meal?.food ? JSON.parse(meal?.food) : [],
         color: "dark",
       });
     });
@@ -195,44 +205,79 @@ onMounted(() => {
 .ct-noentries {
   padding-top: $gap_inner-big;
 }
+
 .ct-entry {
   margin-top: $gap_inner-small;
-  @include grid(1fr px(40) px(40), $gap: 0);
   border: 1px solid $color_dark;
-  .ct-infos {
-    padding-left: $gap_inner-big;
-    @include flex(row, flex-start, center);
-    > :first-child {
-      margin-top: negative(px(5));
+
+  .ct-stats {
+    border-bottom: 1px solid $color_dark;
+    @include grid(1fr px(40) px(40), $gap: 0);
+
+    .ct-infos {
+      padding-left: $gap_inner-big;
+      @include flex(row, flex-start, center);
+
+      > :first-child {
+        margin-top: negative(px(5));
+      }
+    }
+
+    .ct-icon {
+      aspect-ratio: 1/1;
+      @include flex();
+      border-left: 1px solid $color_dark;
+
+      img {
+        width: 100%;
+        height: 100%;
+        max-width: px(20);
+        max-height: px(20);
+      }
     }
   }
-  .ct-icon {
-    aspect-ratio: 1/1;
-    @include flex();
-    border-left: 1px solid $color_dark;
-    img {
-      width: 100%;
-      height: 100%;
-      max-width: px(20);
-      max-height: px(20);
+
+  .ct-entry-entries {
+    @include flex(row, flex-start, flex-start, px(5));
+    flex-wrap: wrap;
+    padding: px(5);
+
+    p {
+      background: $color_dark;
+      padding: px(2) px(10);
+      border-radius: 50px;
     }
   }
+
   &[data-type="issue"] {
     border: 1px solid $color_accentdark;
+
+    .ct-stats {
+      border-bottom: 1px solid $color_accentdark;
+    }
+
     .ct-icon {
       border-left: 1px solid $color_accentdark;
     }
+
+    .ct-entry-entries p {
+      background: $color_accentdark;
+    }
   }
+
   &[data-type="period"] {
     border: 1px solid $color_danger;
+
     .ct-icon {
       border-left: 1px solid $color_danger;
     }
   }
 }
+
 .ct-period {
   padding-top: $gap_inner-big;
 }
+
 .ct-periodentry {
   @include flex(row, space-between, center);
 }
