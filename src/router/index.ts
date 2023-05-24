@@ -83,7 +83,7 @@ const router = createRouter({
       path: "/user-info",
       component: AuthLayout,
       meta: {
-        needsAuth: true,
+        needsAuth: false,
         pagetitle: "Profil aufsetzen",
       },
       children: [
