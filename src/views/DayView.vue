@@ -1,7 +1,7 @@
 <template>
   <view-title :title="activeDateTitle" icon="day" />
   <!-- entries -->
-  <div class="ct-entries" v-if="entriesSortedByTime?.length">
+  <div class="ct-entries" v-if="entriesSortedByTime && entriesSortedByTime.length">
     <p class="typo-info">Vorhandene Einträge</p>
     <div
       v-for="(entry, index) in entriesSortedByTime"
@@ -29,7 +29,7 @@
   <!-- period entry -->
   <div
     class="ct-period typo-danger"
-    v-if="needsPeriodTracking && periodByUserAndDay?.length || false"
+    v-if="needsPeriodTracking && periodByUserAndDay && periodByUserAndDay.length"
   >
     <div
       class="ct-periodentry"
@@ -50,7 +50,7 @@
     </action-button>
     <action-button
       @click="insertPeriod"
-      v-if="needsPeriodTracking && !periodByUserAndDay?.length"
+      v-if="needsPeriodTracking && periodByUserAndDay && !periodByUserAndDay?.length"
     >
       Periode eintragen
     </action-button>
