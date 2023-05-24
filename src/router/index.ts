@@ -208,14 +208,4 @@ const router = createRouter({
     },
   ],
 });
-
-router.beforeEach(async (to, from, next) => {
-  const { data } = await supabase.auth.getUser();
-  if (!to.meta.needsAuth) {
-    data.user ? next({ name: "home" }) : next();
-  } else {
-    !data.user ? next({ name: "entry" }) : next();
-  }
-});
-
 export default router;
