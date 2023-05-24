@@ -16,7 +16,6 @@ import CalendarView from "@/views/CalendarView.vue";
 import DayView from "@/views/DayView.vue";
 import CorrelationView from "@/views/CorrelationView.vue";
 import ProfileView from "@/views/ProfileView.vue";
-import TestView from "@/views/Test.vue";
 // -> ts
 export {};
 import "vue-router";
@@ -206,23 +205,7 @@ const router = createRouter({
           component: ProfileView,
         },
       ],
-    },
-    // -> test
-    {
-      path: "/test",
-      component: EntryLayout,
-      meta: {
-        needsAuth: false,
-        pagetitle: "Test",
-      },
-      children: [
-        {
-          path: "",
-          name: "test",
-          component: TestView,
-        },
-      ],
-    },
+    }
   ],
 });
 
