@@ -15,8 +15,8 @@
     {
       "src": "./foodtracker_icon.svg",
       "type": "image/svg+xml",
-      "sizes": "512x512",
-      "purpose": "any maskable"
+      "sizes": "150x150",
+      "purpose": "any"
     },
     {
       "src": "./windows11/SmallTile.scale-100.png",
