@@ -29,7 +29,7 @@
   <!-- period entry -->
   <div
     class="ct-period typo-danger"
-    v-if="needsPeriodTracking && periodByUserAndDay?.length"
+    v-if="needsPeriodTracking && periodByUserAndDay?.length || false"
   >
     <div
       class="ct-periodentry"

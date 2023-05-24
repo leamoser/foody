@@ -117,7 +117,7 @@ export const useSupabase = () => {
       wasSuccessful.value = true;
     }
     if (meals?.length) {
-      mealsByUserAndDay.value = meals;
+      mealsByUserAndDay.value = meals as mealsTable[];
     } else {
       mealsByUserAndDay.value = [];
     }
@@ -143,7 +143,7 @@ export const useSupabase = () => {
       wasSuccessful.value = true;
     }
     if (meals?.length) {
-      mealsByUserAndMonth.value = meals;
+      mealsByUserAndMonth.value = meals as mealsTable[];
     } else {
       mealsByUserAndMonth.value = [];
     }
@@ -212,7 +212,7 @@ export const useSupabase = () => {
       wasSuccessful.value = true;
     }
     if (issues?.length) {
-      issuesByUserAndDay.value = issues;
+      issuesByUserAndDay.value = issues as issuesTable[];
     } else {
       issuesByUserAndDay.value = [];
     }
@@ -238,7 +238,7 @@ export const useSupabase = () => {
       wasSuccessful.value = true;
     }
     if (issues?.length) {
-      issuesByUserAndMonth.value = issues;
+      issuesByUserAndMonth.value = issues as issuesTable[];
     } else {
       issuesByUserAndMonth.value = [];
     }
@@ -280,7 +280,7 @@ export const useSupabase = () => {
       wasSuccessful.value = true;
     }
     if (period?.length) {
-      periodByUserAndDay.value = period;
+      periodByUserAndDay.value = period as periodTable[];
     } else {
       periodByUserAndDay.value = [];
     }
@@ -306,7 +306,7 @@ export const useSupabase = () => {
       wasSuccessful.value = true;
     }
     if (period?.length) {
-      periodByUserAndMonth.value = period;
+      periodByUserAndMonth.value = period as periodTable[];
     } else {
       periodByUserAndMonth.value = [];
     }
