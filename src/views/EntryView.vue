@@ -45,7 +45,7 @@ const appname = import.meta.env.VITE_BASE_APPNAME;
     @include f-mono(px(48), $color: $color_light);
   }
 }
-.ct-buttonlist {
+.ct-buttons {
   @include flex();
 }
 </style>
