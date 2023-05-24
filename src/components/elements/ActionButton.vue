@@ -1,6 +1,6 @@
 <template>
   <button @click="navigateTo" :class="{ disabled: disabled }">
-    <p class="typo-text"><slot /></p>
+    <p class="typo-info"><slot /></p>
   </button>
 </template>
 
@@ -32,7 +32,7 @@ const navigateTo = (): void => {
 button {
   background: $color_light;
   border: 1px solid $color_dark;
-  padding: px(8) px(20);
+  padding: px(6) px(10);
   border-radius: px(50);
   &.disabled {
     pointer-events: none;
