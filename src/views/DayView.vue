@@ -1,7 +1,7 @@
 <template>
   <view-title :title="activeDateTitle" icon="day" />
   <!-- entries -->
-  <div class="ct-entries" v-if="entriesSortedByTime.length">
+  <div class="ct-entries" v-if="entriesSortedByTime?.length">
     <p class="typo-info">Vorhandene Einträge</p>
     <div
       v-for="(entry, index) in entriesSortedByTime"
